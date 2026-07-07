@@ -11,61 +11,122 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-
-camera.position.z = 3;
+camera.position.set(0, 6, 10);
+camera.lookAt(0, 0, 0);
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({
-  antialias: true
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+document.body.appendChild(renderer.domElement);
+
+// Lights
+scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+const sun = new THREE.DirectionalLight(0xffffff, 2);
+sun.position.set(10, 20, 10);
+scene.add(sun);
+
+// Ground
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(200, 200),
+  new THREE.MeshLambertMaterial({
+    color: 0x3fa34d
+  })
+);
+
+ground.rotation.x = -Math.PI / 2;
+scene.add(ground);
+
+// Road
+const road = new THREE.Mesh(
+  new THREE.PlaneGeometry(8, 200),
+  new THREE.MeshLambertMaterial({
+    color: 0x333333
+  })
+);
+
+road.rotation.x = -Math.PI / 2;
+road.position.y = 0.01;
+scene.add(road);
+
+// Lane Lines
+const laneMaterial = new THREE.MeshBasicMaterial({
+  color: 0xffffff
 });
 
-renderer.setSize(
-  window.innerWidth,
-  window.innerHeight
+const laneLines = [];
+
+for (let i = 0; i < 40; i++) {
+
+  const line = new THREE.Mesh(
+
+    new THREE.PlaneGeometry(0.2,2),
+
+    laneMaterial
+
+  );
+
+  line.rotation.x = -Math.PI / 2;
+
+  line.position.set(0,0.02,-i*5);
+
+  scene.add(line);
+
+  laneLines.push(line);
+
+}
+
+// Player Car
+const player = new THREE.Mesh(
+
+  new THREE.BoxGeometry(1.5,1,3),
+
+  new THREE.MeshLambertMaterial({
+    color:0xff0000
+  })
+
 );
 
-renderer.setPixelRatio(
-  window.devicePixelRatio
-);
+player.position.y = 0.5;
+player.position.z = 4;
 
-document.body.appendChild(
-  renderer.domElement
-);
-
-// Cube
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(),
-  new THREE.MeshNormalMaterial()
-);
-
-scene.add(cube);
+scene.add(player);
 
 // Animation
-function animate() {
 
-  requestAnimationFrame(animate);
+function animate(){
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+requestAnimationFrame(animate);
 
-  renderer.render(scene, camera);
+// Road Animation
+
+laneLines.forEach(line=>{
+
+line.position.z +=0.5;
+
+if(line.position.z>10){
+
+line.position.z=-190;
+
+}
+
+});
+
+renderer.render(scene,camera);
 
 }
 
 animate();
 
 // Resize
-window.addEventListener("resize", () => {
 
-  camera.aspect =
-    window.innerWidth /
-    window.innerHeight;
+window.addEventListener("resize",()=>{
 
-  camera.updateProjectionMatrix();
+camera.aspect=window.innerWidth/window.innerHeight;
 
-  renderer.setSize(
-    window.innerWidth,
-    window.innerHeight
-  );
+camera.updateProjectionMatrix();
+
+renderer.setSize(window.innerWidth,window.innerHeight);
 
 });
