@@ -78,11 +78,19 @@ for (let i = 0; i < 40; i++) {
 }
 
 // Player Car
-const player = new THREE.Mesh(
 let moveLeft = false;
 let moveRight = false;
 const speed = 0.15;
+
+const player = new THREE.Mesh(
+
   new THREE.BoxGeometry(1.5,1,3),
+
+  new THREE.MeshLambertMaterial({
+    color:0xff0000
+  })
+
+);
 
   new THREE.MeshLambertMaterial({
     color:0xff0000
