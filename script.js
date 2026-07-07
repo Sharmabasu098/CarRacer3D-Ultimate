@@ -79,7 +79,9 @@ for (let i = 0; i < 40; i++) {
 
 // Player Car
 const player = new THREE.Mesh(
-
+let moveLeft = false;
+let moveRight = false;
+const speed = 0.15;
   new THREE.BoxGeometry(1.5,1,3),
 
   new THREE.MeshLambertMaterial({
@@ -112,13 +114,34 @@ line.position.z=-190;
 }
 
 });
+if (moveLeft && player.position.x > -2.8) {
+  player.position.x -= speed;
+}
 
+if (moveRight && player.position.x < 2.8) {
+  player.position.x += speed;
+                        }
 renderer.render(scene,camera);
 
 }
 
 animate();
+window.addEventListener("touchstart", (e) => {
 
+  if (e.touches[0].clientX < window.innerWidth / 2) {
+    moveLeft = true;
+  } else {
+    moveRight = true;
+  }
+
+});
+
+window.addEventListener("touchend", () => {
+
+  moveLeft = false;
+  moveRight = false;
+
+});
 // Resize
 
 window.addEventListener("resize",()=>{
