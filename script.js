@@ -90,13 +90,7 @@ const player = new THREE.Mesh(
     color:0xff0000
   })
 
-);
-
-  new THREE.MeshLambertMaterial({
-    color:0xff0000
-  })
-
-);
+)
 
 player.position.y = 0.5;
 player.position.z = 4;
