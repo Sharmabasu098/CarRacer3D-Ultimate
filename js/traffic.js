@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { player } from "./player.js";
 
 export const trafficCars = [];
 
@@ -60,5 +61,23 @@ export function updateTraffic() {
         }
 
     });
+
+}
+
+
+export function checkCollision() {
+
+    for (const car of trafficCars) {
+
+        if (
+            Math.abs(car.position.x - player.position.x) < 1.4 &&
+            Math.abs(car.position.z - player.position.z) < 2.5
+        ) {
+            return true;
+        }
+
+    }
+
+    return false;
 
 }
