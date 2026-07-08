@@ -20,6 +20,11 @@ createPlayer(scene);
 createTraffic(scene);
 setupControls();
 
+// Score
+let score = 0;
+
+const scoreElement =
+    document.getElementById("score");
 // Animation
 function animate() {
 
@@ -30,6 +35,11 @@ function animate() {
     updatePlayer(moveLeft, moveRight);
 
     updateTraffic();
+
+    score += 0.05;
+
+scoreElement.textContent =
+    "Score: " + Math.floor(score);
 
     if (player) {
 
