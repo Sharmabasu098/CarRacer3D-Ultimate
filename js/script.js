@@ -25,15 +25,24 @@ createTraffic(scene);
 setupControls();
 
 // Score
+let gameOver = false;
 let score = 0;
 
 const scoreElement =
     document.getElementById("score");
+const gameOverElement =
+    document.getElementById("gameOver");
 // Animation
 function animate() {
 
     requestAnimationFrame(animate);
+if (gameOver) {
 
+    renderer.render(scene, camera);
+
+    return;
+
+}
     updateRoad();
 
     updatePlayer(moveLeft, moveRight);
@@ -47,13 +56,14 @@ scoreElement.textContent =
     
 if (checkCollision()) {
 
+    gameOver = true;
+
     gameOverElement.style.display = "block";
 
     return;
 
+
 }
-const gameOverElement =
-    document.getElementById("gameOver");
 
     if (player) {
 
