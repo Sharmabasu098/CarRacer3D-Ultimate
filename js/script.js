@@ -4,7 +4,11 @@ import { scene, camera, renderer } from "./scene.js";
 import { createRoad, updateRoad } from "./road.js";
 import { createPlayer, updatePlayer, player } from "./player.js";
 import { setupControls, moveLeft, moveRight } from "./controls.js";
-import { createTraffic, updateTraffic } from "./traffic.js";
+import {
+    createTraffic,
+    updateTraffic,
+    checkCollision
+} from "./traffic.js";
 
 // Lights
 const ambient = new THREE.AmbientLight(0xffffff, 1);
@@ -40,6 +44,16 @@ function animate() {
 
 scoreElement.textContent =
     "Score: " + Math.floor(score);
+    
+if (checkCollision()) {
+
+    gameOverElement.style.display = "block";
+
+    return;
+
+}
+const gameOverElement =
+    document.getElementById("gameOver");
 
     if (player) {
 
