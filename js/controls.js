@@ -1,5 +1,4 @@
-export let moveLeft = false;
-export let moveRight = false;
+import { moveLane } from "./player.js";
 
 export function setupControls() {
 
@@ -7,20 +6,13 @@ export function setupControls() {
 
         if (e.touches[0].clientX < window.innerWidth / 2) {
 
-            moveLeft = true;
+            moveLane(-1);
 
         } else {
 
-            moveRight = true;
+            moveLane(1);
 
         }
-
-    });
-
-    window.addEventListener("touchend", () => {
-
-        moveLeft = false;
-        moveRight = false;
 
     });
 
