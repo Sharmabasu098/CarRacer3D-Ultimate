@@ -4,7 +4,6 @@ export let player;
 
 const lanes = [-2.5, 0, 2.5];
 let currentLane = 1;
-let canChangeLane = true;
 
 export function createPlayer(scene) {
 
@@ -24,23 +23,18 @@ export function createPlayer(scene) {
 
 }
 
-export function updatePlayer(moveLeft, moveRight) {
-if (moveLeft) {
+export function moveLane(direction) {
 
-    currentLane--;
+    currentLane += direction;
 
     if (currentLane < 0) currentLane = 0;
-
-}
-
-if (moveRight) {
-
-    currentLane++;
-
     if (currentLane > 2) currentLane = 2;
 
 }
 
-player.position.x +=
-    (lanes[currentLane] - player.position.x) * 0.2;
+export function updatePlayer() {
+
+    player.position.x +=
+        (lanes[currentLane] - player.position.x) * 0.20;
+
 }
