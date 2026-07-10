@@ -3,6 +3,8 @@ import { player } from "./player.js";
 
 export const trafficCars = [];
 
+export let trafficSpeed = 0.30;
+
 export function createTraffic(scene) {
 
     for (let i = 0; i < 5; i++) {
@@ -43,7 +45,7 @@ export function updateTraffic() {
 
     trafficCars.forEach(car => {
 
-        car.position.z += 0.30;
+        car.position.z += trafficSpeed;
 
         if (car.position.z > 12) {
 
@@ -79,5 +81,14 @@ export function checkCollision() {
     }
 
     return false;
+
+}
+export function increaseTrafficSpeed() {
+
+    if (trafficSpeed < 0.8) {
+
+        trafficSpeed += 0.02;
+
+    }
 
 }
