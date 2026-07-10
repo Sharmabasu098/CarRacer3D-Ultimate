@@ -42,3 +42,5 @@ if (moveRight) {
 
 player.position.x +=
     (lanes[currentLane] - player.position.x) * 0.2;
+
+}
