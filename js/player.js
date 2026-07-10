@@ -2,6 +2,9 @@ import * as THREE from "three";
 
 export let player;
 
+const lanes = [-2.5, 0, 2.5];
+let currentLane = 1;
+
 export function createPlayer(scene) {
 
     player = new THREE.Mesh(
