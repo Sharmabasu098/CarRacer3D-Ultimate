@@ -7,7 +7,8 @@ import { setupControls, moveLeft, moveRight } from "./controls.js";
 import {
     createTraffic,
     updateTraffic,
-    checkCollision
+    checkCollision,
+    increaseTrafficSpeed
 } from "./traffic.js";
 
 // Lights
@@ -50,7 +51,11 @@ if (gameOver) {
     updateTraffic();
 
     score += 0.05;
+if (Math.floor(score) % 100 === 0) {
 
+    increaseTrafficSpeed();
+
+}
 scoreElement.textContent =
     "Score: " + Math.floor(score);
     
