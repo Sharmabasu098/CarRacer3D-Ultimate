@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { resetControls } from "./controls.js";
 
 export let player;
 
