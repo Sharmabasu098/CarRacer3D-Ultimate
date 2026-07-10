@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { scene, camera, renderer } from "./scene.js";
 import { createRoad, updateRoad } from "./road.js";
 import { createPlayer, updatePlayer, player } from "./player.js";
-import { setupControls, moveLeft, moveRight } from "./controls.js";
+import { setupControls } from "./controls.js";
 import {
     createTraffic,
     updateTraffic,
@@ -45,8 +45,8 @@ if (gameOver) {
 
 }
     updateRoad();
-
-    updatePlayer(moveLeft, moveRight);
+    
+    updatePlayer();
 
     updateTraffic();
 
