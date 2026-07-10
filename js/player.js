@@ -23,20 +23,22 @@ export function createPlayer(scene) {
 
 }
 
-export function updatePlayer(moveLeft, moveRight) {
 
-    const speed = 0.15;
+if (moveLeft) {
 
-    if (moveLeft && player.position.x > -2.8) {
+    currentLane--;
 
-        player.position.x -= speed;
-
-    }
-
-    if (moveRight && player.position.x < 2.8) {
-
-        player.position.x += speed;
-
-    }
+    if (currentLane < 0) currentLane = 0;
 
 }
+
+if (moveRight) {
+
+    currentLane++;
+
+    if (currentLane > 2) currentLane = 2;
+
+}
+
+player.position.x +=
+    (lanes[currentLane] - player.position.x) * 0.2;
