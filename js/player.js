@@ -23,7 +23,7 @@ export function createPlayer(scene) {
 
 }
 
-
+export function updatePlayer(moveLeft, moveRight) {
 if (moveLeft) {
 
     currentLane--;
@@ -42,5 +42,4 @@ if (moveRight) {
 
 player.position.x +=
     (lanes[currentLane] - player.position.x) * 0.2;
-
 }
