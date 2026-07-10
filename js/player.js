@@ -4,6 +4,7 @@ export let player;
 
 const lanes = [-2.5, 0, 2.5];
 let currentLane = 1;
+let canChangeLane = true;
 
 export function createPlayer(scene) {
 
