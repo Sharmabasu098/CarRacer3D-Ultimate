@@ -3,7 +3,7 @@ import { player } from "./player.js";
 
 export const trafficCars = [];
 
-export let trafficSpeed = 0.30;
+export let trafficSpeed = 0.10;
 
 export function createTraffic(scene) {
 
