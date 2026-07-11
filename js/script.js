@@ -33,12 +33,6 @@ const scoreElement =
     document.getElementById("score");
 const gameOverElement =
     document.getElementById("gameOver");
-const restartBtn =
-    document.getElementById("restartBtn");
-
-restartBtn.addEventListener("click", () => {
-
-    location.reload();
 
 });
 // Animation
