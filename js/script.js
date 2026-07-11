@@ -28,6 +28,7 @@ setupControls();
 // Score
 let gameOver = false;
 let score = 0;
+let lastSpeedLevel = 0;
 
 const scoreElement =
     document.getElementById("score");
@@ -48,38 +49,41 @@ restartBtn.addEventListener("click", () => {
 function animate() {
 
     requestAnimationFrame(animate);
-if (gameOver) {
 
-    renderer.render(scene, camera);
+    if (gameOver) {
 
-    return;
+        renderer.render(scene, camera);
+        return;
 
-}
+    }
+
     updateRoad();
-    
+
     updatePlayer();
 
     updateTraffic();
 
     score += 0.05;
-if (Math.floor(score) % 100 === 0) {
 
-    increaseTrafficSpeed();
+    scoreElement.textContent =
+        "Score: " + Math.floor(score);
 
-}
-scoreElement.textContent =
-    "Score: " + Math.floor(score);
-    
-if (checkCollision()) {
+    const level = Math.floor(score / 100);
 
-    gameOver = true;
+    if (level > lastSpeedLevel) {
 
-    gameOverElement.style.display = "block";
+        lastSpeedLevel = level;
+        increaseTrafficSpeed();
 
-    return;
+    }
 
+    if (checkCollision()) {
 
-}
+        gameOver = true;
+        gameOverElement.style.display = "block";
+        return;
+
+    }
 
     if (player) {
 
