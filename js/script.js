@@ -44,7 +44,6 @@ restartBtn.addEventListener("click", () => {
 
 });
 
-});
 // Animation
 function animate() {
 
