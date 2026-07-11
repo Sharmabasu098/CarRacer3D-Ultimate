@@ -43,3 +43,18 @@ canvas {
     z-index: 200;
     text-align: center;
 }
+
+#restartBtn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 22px;
+    border: none;
+    border-radius: 8px;
+    background: #ff3b30;
+    color: white;
+    cursor: pointer;
+}
+
+#restartBtn:hover {
+    background: #ff1f0f;
+}
