@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 export let laneLines = [];
+export let trees = [];
 
 export function createRoad(scene) {
 
@@ -35,10 +36,9 @@ export function createRoad(scene) {
     scene.add(road);
 
     // Lane Lines
-    const laneMaterial =
-        new THREE.MeshBasicMaterial({
-            color: 0xffffff
-        });
+    const laneMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+    });
 
     laneLines = [];
 
@@ -66,6 +66,14 @@ export function createRoad(scene) {
 
     }
 
+    // Trees
+    for (let i = 0; i < 25; i++) {
+
+        createTree(scene, -8, -i * 10);
+        createTree(scene, 8, -i * 10);
+
+    }
+
 }
 
 export function updateRoad() {
@@ -81,5 +89,52 @@ export function updateRoad() {
         }
 
     });
+
+    trees.forEach(tree => {
+
+        tree.position.z += 0.5;
+
+        if (tree.position.z > 10) {
+
+            tree.position.z = -190;
+
+        }
+
+    });
+
+}
+
+function createTree(scene, x, z) {
+
+    const trunk = new THREE.Mesh(
+
+        new THREE.CylinderGeometry(0.15, 0.2, 1),
+
+        new THREE.MeshLambertMaterial({
+            color: 0x8b4513
+        })
+
+    );
+
+    trunk.position.set(x, 0.5, z);
+
+    scene.add(trunk);
+
+    const leaves = new THREE.Mesh(
+
+        new THREE.SphereGeometry(0.7, 10, 10),
+
+        new THREE.MeshLambertMaterial({
+            color: 0x228B22
+        })
+
+    );
+
+    leaves.position.set(x, 1.4, z);
+
+    scene.add(leaves);
+
+    trees.push(trunk);
+    trees.push(leaves);
 
 }
