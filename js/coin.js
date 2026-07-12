@@ -12,7 +12,7 @@ export function createCoins(scene) {
 
         const coin = new THREE.Mesh(
 
-            new THREE.CylinderGeometry(0.8, 0.8, 0.3, 32)
+            new THREE.CylinderGeometry(0.8, 0.8, 0.3, 32),
 
             new THREE.MeshLambertMaterial({
                 color: 0xffd700
@@ -24,8 +24,8 @@ export function createCoins(scene) {
 
         coin.position.set(
             lanes[Math.floor(Math.random() * 3)],
-            0.7,
-            -20 - (i * 20)
+            1,
+            -20 - (i * 25)
         );
 
         scene.add(coin);
@@ -40,13 +40,15 @@ export function updateCoins() {
 
     coins.forEach(coin => {
 
-        coin.rotation.y += 0.15;
+        // Rotate Coin
+        coin.rotation.y += 0.12;
 
-        coin.position.z += 0.30;
+        // Move Coin
+        coin.position.z += 0.15;
 
         if (coin.position.z > 12) {
 
-            coin.position.z = -180; hai 
+            coin.position.z = -180;
 
             coin.position.x =
                 lanes[Math.floor(Math.random() * 3)];
@@ -63,13 +65,14 @@ export function collectCoins() {
 
         if (
 
-            Math.abs(coin.position.x - player.position.x) < 1 &&
-            Math.abs(coin.position.z - player.position.z) < 2
+            Math.abs(coin.position.x - player.position.x) < 1.5 &&
+            Math.abs(coin.position.z - player.position.z) < 2.5
 
         ) {
 
             coinCount++;
 
+            // Respawn Coin
             coin.position.z = -180;
 
             coin.position.x =
