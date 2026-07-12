@@ -1,5 +1,11 @@
 import * as THREE from "three";
 import { player } from "./player.js";
+import {
+    createCoins,
+    updateCoins,
+    collectCoins,
+    coinCount
+} from "./coin.js";
 
 export const trafficCars = [];
 
