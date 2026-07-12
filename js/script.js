@@ -57,9 +57,40 @@ const gameOverElement =
 const restartBtn =
     document.getElementById("restartBtn");
 
-restartBtn.addEventListener("click", () => {
+const countdown =
+    document.getElementById("countdown");
 
-    location.reload();
+startBtn.addEventListener("click", () => {
+
+    startBtn.style.display = "none";
+
+    let count = 3;
+
+    countdown.textContent = count;
+
+    const timer = setInterval(() => {
+
+        count--;
+
+        if (count > 0) {
+
+            countdown.textContent = count;
+
+        } else if (count === 0) {
+
+            countdown.textContent = "GO!";
+
+        } else {
+
+            clearInterval(timer);
+
+            startScreen.style.display = "none";
+
+            gameStarted = true;
+
+        }
+
+    }, 1000);
 
 });
 
