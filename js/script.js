@@ -12,6 +12,13 @@ import {
     increaseTrafficSpeed
 } from "./traffic.js";
 
+import {
+    createCoins,
+    updateCoins,
+    collectCoins,
+    coinCount
+} from "./coin.js";
+
 // ----------------------
 // Start Screen
 // ----------------------
