@@ -86,6 +86,7 @@ scene.add(sun);
 createRoad(scene);
 createPlayer(scene);
 createTraffic(scene);
+createCoins(scene);
 setupControls();
 
 // ----------------------
