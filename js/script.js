@@ -4,12 +4,30 @@ import { scene, camera, renderer } from "./scene.js";
 import { createRoad, updateRoad } from "./road.js";
 import { createPlayer, updatePlayer, player } from "./player.js";
 import { setupControls } from "./controls.js";
+
 import {
     createTraffic,
     updateTraffic,
     checkCollision,
     increaseTrafficSpeed
 } from "./traffic.js";
+
+// Start Screen
+let gameStarted = false;
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+startBtn.addEventListener("click", () => {
+
+    gameStarted = true;
+
+    startScreen.style.display = "none";
+
+});
 
 // Lights
 const ambient = new THREE.AmbientLight(0xffffff, 1);
@@ -49,6 +67,13 @@ restartBtn.addEventListener("click", () => {
 function animate() {
 
     requestAnimationFrame(animate);
+    if (!gameStarted) {
+
+    renderer.render(scene, camera);
+
+    return;
+
+    }
 
     if (gameOver) {
 
