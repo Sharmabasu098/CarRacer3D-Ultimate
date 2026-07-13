@@ -14,12 +14,17 @@ export function createCoins(scene) {
 
             new THREE.CylinderGeometry(0.75, 0.75, 0.18, 48),
 
-new THREE.MeshStandardMaterial({
-    color: 0xffd700,
-    metalness: 1,
-    roughness: 0.15
-})
+const coin = new THREE.Mesh(
 
+    new THREE.CylinderGeometry(0.75, 0.75, 0.18, 48),
+
+    new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.15
+    })
+
+);
         coin.rotation.z = Math.PI / 2;
 
         coin.position.set(
@@ -41,7 +46,7 @@ export function updateCoins() {
     coins.forEach(coin => {
 
         // Rotate Coin
-        coin.rotation.y += 0.12;
+        coin.rotation.x += 0.15;
 
         // Move Coin
         coin.position.z += 0.15;
