@@ -71,14 +71,9 @@ startBtn.addEventListener("click", () => {
 // ----------------------
 // Lights
 // ----------------------
-
 const ambient = new THREE.AmbientLight(0xffffff, 1.2);
-scene.add(ambient);
 
 const sun = new THREE.DirectionalLight(0xffffff, 3);
-sun.position.set(10, 20, 10);
-scene.add(sun);
-
 // ----------------------
 // Create Game
 // ----------------------
