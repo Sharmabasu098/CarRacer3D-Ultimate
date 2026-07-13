@@ -11,9 +11,6 @@ export function createCoins(scene) {
     for (let i = 0; i < 8; i++) {
 
         const coin = new THREE.Mesh(
-
-            new THREE.CylinderGeometry(0.75, 0.75, 0.18, 48),
-
 const coin = new THREE.Mesh(
 
     new THREE.CylinderGeometry(0.75, 0.75, 0.18, 48),
@@ -25,6 +22,7 @@ const coin = new THREE.Mesh(
     })
 
 );
+            
         coin.rotation.z = Math.PI / 2;
 
         coin.position.set(
