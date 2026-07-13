@@ -73,7 +73,7 @@ export function collectCoins() {
             coinCount++;
 
             // Respawn Coin
-            coin.position.z = -180;
+            coin.position.z = -180 - Math.random() * 40;
 
             coin.position.x =
                 lanes[Math.floor(Math.random() * 3)];
