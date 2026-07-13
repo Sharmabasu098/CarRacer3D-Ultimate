@@ -11,17 +11,32 @@ export function createCoins(scene) {
     for (let i = 0; i < 8; i++) {
 
         const coin = new THREE.Mesh(
-const coin = new THREE.Mesh(
 
-    new THREE.CylinderGeometry(0.75, 0.75, 0.18, 48),
+            new THREE.CylinderGeometry(0.75, 0.75, 0.18, 48),
 
-    new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.15
-    })
+            new THREE.MeshStandardMaterial({
+                color: 0xffd700,
+                metalness: 1,
+                roughness: 0.15
+            })
 
-);
+        );
+
+        coin.rotation.z = Math.PI / 2;
+
+        coin.position.set(
+            lanes[Math.floor(Math.random() * 3)],
+            1,
+            -20 - (i * 25)
+        );
+
+        scene.add(coin);
+
+        coins.push(coin);
+
+    }
+
+}
             
         coin.rotation.z = Math.PI / 2;
 
