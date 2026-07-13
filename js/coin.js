@@ -65,8 +65,8 @@ export function collectCoins() {
 
         if (
 
-            Math.abs(coin.position.x - player.position.x) < 1.5 &&
-            Math.abs(coin.position.z - player.position.z) < 2.5
+            Math.abs(coin.position.x - player.position.x) < 2 &&
+            Math.abs(coin.position.z - player.position.z) < 3
 
         ) {
 
