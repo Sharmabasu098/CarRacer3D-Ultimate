@@ -22,8 +22,7 @@ export function createCoins(scene) {
 
         );
 
-        
-export function updateCoins() {
+        export function updateCoins() {
 
     coins.forEach(coin => {
 
