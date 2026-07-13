@@ -22,22 +22,7 @@ export function createCoins(scene) {
 
         );
 
-        coin.rotation.z = Math.PI / 2;
-
-        coin.position.set(
-            lanes[Math.floor(Math.random() * 3)],
-            1,
-            -20 - (i * 25)
-        );
-
-        scene.add(coin);
-
-        coins.push(coin);
-
-    }
-
-}
-
+        
 export function updateCoins() {
 
     coins.forEach(coin => {
