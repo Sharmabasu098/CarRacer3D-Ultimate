@@ -98,14 +98,14 @@ let lastSpeedLevel = 0;
 const scoreElement =
     document.getElementById("score");
 
+coinsElement =
+    document.getElemenconsttById("coins");
+
 const gameOverElement =
     document.getElementById("gameOver");
 
 const restartBtn =
     document.getElementById("restartBtn");
-
-const coinsElement =
-    document.getElementById("coins");
 
 restartBtn.addEventListener("click", () => {
 
