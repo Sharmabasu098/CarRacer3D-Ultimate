@@ -104,6 +104,9 @@ const gameOverElement =
 const restartBtn =
     document.getElementById("restartBtn");
 
+const coinsElement =
+    document.getElementById("coins");
+
 restartBtn.addEventListener("click", () => {
 
     location.reload();
