@@ -98,7 +98,7 @@ let lastSpeedLevel = 0;
 const scoreElement =
     document.getElementById("score");
 
-coinsElement =
+const Element =
     document.getElemenconsttById("coins");
 
 const gameOverElement =
@@ -149,6 +149,9 @@ function animate() {
 
     scoreElement.textContent =
         "Score: " + Math.floor(score);
+
+    coinsElement.textContent =
+    "🪙 Coins: " + coinCount;
 
     const level =
         Math.floor(score / 100);
