@@ -28,6 +28,19 @@ canvas {
     z-index: 100;
 }
 
+#coins {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    color: gold;
+    font-size: 28px;
+    font-weight: bold;
+    background: rgba(0,0,0,.4);
+    padding: 10px 16px;
+    border-radius: 10px;
+    z-index: 100;
+}
+
 #gameOver {
     position: absolute;
     top: 50%;
