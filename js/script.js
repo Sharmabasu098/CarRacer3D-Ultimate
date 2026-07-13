@@ -134,13 +134,17 @@ function animate() {
 
     }
 
-    updateRoad();
+        updateRoad();
 
-    updatePlayer();
+        updatePlayer();
 
-    updateTraffic();
+        updateTraffic();
 
-    score += 0.05;
+        // Coins
+        updateCoins();
+        collectCoins();
+
+        score += 0.05;
 
     scoreElement.textContent =
         "Score: " + Math.floor(score);
