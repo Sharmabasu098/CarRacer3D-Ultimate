@@ -98,8 +98,8 @@ let lastSpeedLevel = 0;
 const scoreElement =
     document.getElementById("score");
 
-const Element =
-    document.getElemenconsttById("coins");
+const coinsElement =
+    document.getElementById("coins");
 
 const gameOverElement =
     document.getElementById("gameOver");
