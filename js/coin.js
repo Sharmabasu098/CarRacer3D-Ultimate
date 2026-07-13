@@ -12,13 +12,13 @@ export function createCoins(scene) {
 
         const coin = new THREE.Mesh(
 
-            new THREE.CylinderGeometry(0.8, 0.8, 0.3, 32),
+            new THREE.CylinderGeometry(0.75, 0.75, 0.18, 48),
 
-            new THREE.MeshLambertMaterial({
-                color: 0xffd700
-            })
-
-        );
+new THREE.MeshStandardMaterial({
+    color: 0xffd700,
+    metalness: 1,
+    roughness: 0.15
+})
 
         coin.rotation.z = Math.PI / 2;
 
