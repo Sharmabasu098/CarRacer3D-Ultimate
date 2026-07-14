@@ -79,3 +79,21 @@ export function collectCoins() {
     });
 
 }
+
+export function loadCoins() {
+
+    const savedCoins = localStorage.getItem("coins");
+
+    if (savedCoins) {
+
+        coinCount = Number(savedCoins);
+
+    }
+
+}
+
+export function saveCoins() {
+
+    localStorage.setItem("coins", coinCount);
+
+}
