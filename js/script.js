@@ -88,6 +88,7 @@ createRoad(scene);
 createPlayer(scene);
 createTraffic(scene);
 createCoins(scene);
+loadCoins();
 setupControls();
 
 // ----------------------
