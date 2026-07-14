@@ -14,6 +14,11 @@ import {
 
 import {
     createCoins,
+    updateCoins,
+    collectCoins,
+    coinCount,
+    loadCoins
+} from "./coin.js";
    
 // ----------------------
 // Start Screen
