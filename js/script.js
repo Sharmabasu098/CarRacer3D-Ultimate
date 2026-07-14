@@ -14,12 +14,7 @@ import {
 
 import {
     createCoins,
-    updateCoins,
-    collectCoins,
-    coinCount,
-    loadCoins,
-    saveCoins
-
+   
 // ----------------------
 // Start Screen
 // ----------------------
