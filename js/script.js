@@ -58,9 +58,11 @@ startBtn.addEventListener("click", () => {
 
             clearInterval(timer);
 
-            startScreen.style.display = "none";
+countdown.style.display = "none";
 
-            gameStarted = true;
+startScreen.style.display = "none";
+
+gameStarted = true;
 
         }
 
