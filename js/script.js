@@ -16,8 +16,9 @@ import {
     createCoins,
     updateCoins,
     collectCoins,
-    coinCount
-} from "./coin.js";
+    coinCount,
+    loadCoins,
+    saveCoins
 
 // ----------------------
 // Start Screen
