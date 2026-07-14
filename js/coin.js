@@ -70,6 +70,8 @@ export function collectCoins() {
 
             coinCount++;
 
+            saveCoins();
+
             coin.position.z = -180 - Math.random() * 40;
             coin.position.x =
                 lanes[Math.floor(Math.random() * 3)];
