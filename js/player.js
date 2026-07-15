@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 export let player;
 
@@ -7,34 +8,31 @@ let currentLane = 1;
 
 export function createPlayer(scene) {
 
-    player = new THREE.Mesh(
+    const loader = new GLTFLoader();
 
-        new THREE.BoxGeometry(1.5, 1, 3),
+    loader.load(
 
-        new THREE.MeshLambertMaterial({
-            color: 0xff0000
-        })
+        "./assets/models/race.glb",
 
-    );
+        (gltf) => {
 
-    player.position.set(0, 0.5, 4);
+            player = gltf.scene;
 
-    scene.add(player);
+            // Car Size
+            player.scale.set(0.8, 0.8, 0.8);
 
-}
+            // Car Position
+            player.position.set(0, 0.1, 4);
 
-export function moveLane(direction) {
+            // Car Direction
+            player.rotation.y = Math.PI;
 
-    currentLane += direction;
+            scene.add(player);
 
-    if (currentLane < 0) currentLane = 0;
-    if (currentLane > 2) currentLane = 2;
+        },
 
-}
+        undefined,
 
-export function updatePlayer() {
+        (error) => {
 
-    player.position.x +=
-        (lanes[currentLane] - player.position.x) * 0.20;
-
-}
+            console.error("Car model
