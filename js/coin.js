@@ -1,6 +1,9 @@
 import * as THREE from "three";
 import { player } from "./player.js";
 
+const coinSound = new Audio("./assets/sounds/coin.mp3");
+coinSound.volume = 0.5;
+
 export const coins = [];
 const lanes = [-2.5, 0, 2.5];
 
