@@ -73,6 +73,9 @@ export function collectCoins() {
 
             coinCount++;
 
+            coinSound.currentTime = 0;
+            coinSound.play().catch(() => {});
+
             saveCoins();
 
             coin.position.z = -180 - Math.random() * 40;
