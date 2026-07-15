@@ -9,7 +9,6 @@ let currentLane = 1;
 export function createPlayer(scene) {
 
     const loader = new GLTFLoader();
-
     
 loader.load(
     "./assets/models/race.glb",
