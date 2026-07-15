@@ -9,29 +9,35 @@ let currentLane = 1;
 export function createPlayer(scene) {
 
     const loader = new GLTFLoader();
-    
-loader.load(
-    "./assets/models/race.glb",
 
-    (gltf) => {
+    loader.load(
 
-        console.log("Car Loaded Successfully");
+        "./assets/models/race.glb",
 
-        player = gltf.scene;
+        (gltf) => {
 
-        player.scale.set(3, 3, 3);
-        player.position.set(0, 0, 4);
-        player.rotation.y = Math.PI;
+            player = gltf.scene;
 
-        scene.add(player);
+            player.scale.set(3, 3, 3);
+            player.position.set(0, 0, 4);
+            player.rotation.y = Math.PI;
 
-    },
+            scene.add(player);
 
-    undefined,
+        },
 
-    (error) => {
+        undefined,
 
-        console.error(error);
+        (error) => {
 
-    }
-);
+            console.error("Model Load Error:", error);
+
+        }
+
+    );
+
+}
+
+export function moveLane(direction) {
+
+   
