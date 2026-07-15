@@ -10,29 +10,29 @@ export function createPlayer(scene) {
 
     const loader = new GLTFLoader();
 
-    loader.load(
+    
+loader.load(
+    "./assets/models/race.glb",
 
-        "./assets/models/race.glb",
+    (gltf) => {
 
-        (gltf) => {
+        console.log("Car Loaded Successfully");
 
-            player = gltf.scene;
+        player = gltf.scene;
 
-            // Car Size
-            player.scale.set(0.8, 0.8, 0.8);
+        player.scale.set(3, 3, 3);
+        player.position.set(0, 0, 4);
+        player.rotation.y = Math.PI;
 
-            // Car Position
-            player.position.set(0, 0.1, 4);
+        scene.add(player);
 
-            // Car Direction
-            player.rotation.y = Math.PI;
+    },
 
-            scene.add(player);
+    undefined,
 
-        },
+    (error) => {
 
-        undefined,
+        console.error(error);
 
-        (error) => {
-
-            console.error("Car model
+    }
+);
