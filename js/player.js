@@ -18,7 +18,7 @@ export function createPlayer(scene) {
 
             player = gltf.scene;
 
-            player.scale.set(3, 3, 3);
+            player.scale.set(1, 1, 1);
             player.position.set(0, 0, 4);
             player.rotation.y = Math.PI;
 
