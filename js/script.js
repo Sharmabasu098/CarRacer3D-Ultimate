@@ -181,17 +181,14 @@ function animate() {
     if (player) {
 
         camera.position.x = player.position.x;
+camera.position.y = 4;
+camera.position.z = 10;
 
-        camera.lookAt(
-            player.position.x,
-            0,
-            -20
-        );
-
-    }
-
-    renderer.render(scene, camera);
-
+camera.lookAt(
+    player.position.x,
+    1,
+    0
+);
 }
 
 animate();
