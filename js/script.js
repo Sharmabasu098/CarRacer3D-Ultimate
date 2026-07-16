@@ -180,19 +180,17 @@ function animate() {
 
     if (player) {
 
-    camera.position.set(
-        player.position.x,
-        8,
-        18
-    );
+    camera.position.x = player.position.x;
+    camera.position.y = 2.8;
+    camera.position.z = 6;
 
     camera.lookAt(
         player.position.x,
-        0,
-        -10
+        1,
+        0
     );
 
-}
+    }
 
 renderer.render(scene, camera);
 
