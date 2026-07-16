@@ -40,4 +40,18 @@ export function createPlayer(scene) {
 
 export function moveLane(direction) {
 
-   
+    currentLane += direction;
+
+    if (currentLane < 0) currentLane = 0;
+    if (currentLane > 2) currentLane = 2;
+
+}
+
+export function updatePlayer() {
+
+    if (!player) return;
+
+    player.position.x +=
+        (lanes[currentLane] - player.position.x) * 0.20;
+
+}
