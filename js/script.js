@@ -180,15 +180,22 @@ function animate() {
 
     if (player) {
 
-        camera.position.x = player.position.x;
-camera.position.y = 4;
-camera.position.z = 10;
+    camera.position.set(
+        player.position.x,
+        8,
+        18
+    );
 
-camera.lookAt(
-    player.position.x,
-    1,
-    0
-);
+    camera.lookAt(
+        player.position.x,
+        0,
+        -10
+    );
+
+}
+
+renderer.render(scene, camera);
+
 }
 
 animate();
