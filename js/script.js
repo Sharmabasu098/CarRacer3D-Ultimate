@@ -181,14 +181,14 @@ function animate() {
     if (player) {
 
     camera.position.x = player.position.x;
-    camera.position.y = 2.8;
-    camera.position.z = 6;
+camera.position.y = 3.5;
+camera.position.z = 9;
 
-    camera.lookAt(
-        player.position.x,
-        1,
-        0
-    );
+camera.lookAt(
+    player.position.x,
+    1,
+    -5
+);
 
     }
 
