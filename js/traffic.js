@@ -1,99 +1,67 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { player } from "./player.js";
-import {
-    createCoins,
-    updateCoins,
-    collectCoins,
-    coinCount
-} from "./coin.js";
 
 export const trafficCars = [];
 
 export let trafficSpeed = 0.10;
 
+const loader = new GLTFLoader();
+
+const trafficModels = [
+    "./assets/models/police.glb",
+    "./assets/models/sedan.glb",
+    "./assets/models/sedan-sports.glb",
+    "./assets/models/suv.glb",
+    "./assets/models/taxi.glb",
+    "./assets/models/truck.glb",
+    "./assets/models/van.glb"
+];
+
+const lanes = [-2.5, 0, 2.5];
+
 export function createTraffic(scene) {
 
     for (let i = 0; i < 5; i++) {
 
-        const car = new THREE.Mesh(
-
-            new THREE.BoxGeometry(1.5, 1, 3),
-
-            new THREE.MeshLambertMaterial({
-
-                color: Math.random() * 0xffffff
-
-            })
-
-        );
-
-        const lanes = [-2.5, 0, 2.5];
-
-        car.position.x =
-            lanes[
-                Math.floor(
-                    Math.random() * lanes.length
-                )
+        const randomModel =
+            trafficModels[
+                Math.floor(Math.random() * trafficModels.length)
             ];
 
-        car.position.y = 0.5;
-        car.position.z = -20 - (i * 15);
+        loader.load(
 
-        scene.add(car);
+            randomModel,
 
-        trafficCars.push(car);
+            (gltf) => {
 
-    }
+                const car = gltf.scene;
 
-}
+                car.scale.set(2, 2, 2);
 
-export function updateTraffic() {
+                car.position.x =
+                    lanes[
+                        Math.floor(Math.random() * lanes.length)
+                    ];
 
-    trafficCars.forEach(car => {
+                car.position.y = 0;
+                car.position.z = -20 - (i * 18);
 
-        car.position.z += trafficSpeed;
+                scene.add(car);
 
-        if (car.position.z > 12) {
+                trafficCars.push(car);
 
-            const lanes = [-2.5, 0, 2.5];
+            },
 
-            car.position.x =
-                lanes[
-                    Math.floor(
-                        Math.random() * lanes.length
-                    )
-                ];
+            undefined,
 
-            car.position.z = -80;
+            (error) => {
 
-        }
+                console.error("Traffic Model Error:", error);
 
-    });
+            }
 
-}
-
-
-export function checkCollision() {
-
-    for (const car of trafficCars) {
-
-        if (
-            Math.abs(car.position.x - player.position.x) < 0.9 &&
-            Math.abs(car.position.z - player.position.z) < 1.8
-        ) {
-            return true;
-        }
-
-    }
-
-    return false;
-
-}
-export function increaseTrafficSpeed() {
-
-    if (trafficSpeed < 0.8) {
-
-        trafficSpeed += 0.02;
+        );
 
     }
 
