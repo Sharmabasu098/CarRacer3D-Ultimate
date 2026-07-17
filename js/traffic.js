@@ -37,28 +37,59 @@ export function createTraffic(scene) {
         loader.load(
 
             randomModel,
+            
+ (gltf) => {
 
-            (gltf) => {
+     const car = gltf.scene;
 
-                const car = gltf.scene;
+     switch (randomModel) {
 
-                car.scale.set(1.5, 1.5, 1.5);
+        case "./assets/models/truck.glb":
+            car.scale.set(0.9, 0.9, 0.9);
+            break;
 
-                car.position.x =
-                    lanes[
-                        Math.floor(Math.random() * lanes.length)
-                    ];
+        case "./assets/models/van.glb":
+            car.scale.set(1.0, 1.0, 1.0);
+            break;
 
-                car.position.y = 0.25;
-                car.rotation.y = Math.PI;
-                car.position.z = -40 - (i * 25);
+        case "./assets/models/suv.glb":
+            car.scale.set(1.2, 1.2, 1.2);
+            break;
 
-                scene.add(car);
+        case "./assets/models/taxi.glb":
+            car.scale.set(1.2, 1.2, 1.2);
+            break;
 
-                trafficCars.push(car);
+        case "./assets/models/sedan.glb":
+            car.scale.set(1.1, 1.1, 1.1);
+            break;
 
-            },
+        case "./assets/models/sedan-sports.glb":
+            car.scale.set(1.0, 1.0, 1.0);
+            break;
 
+        case "./assets/models/police.glb":
+            car.scale.set(1.1, 1.1, 1.1);
+            break;
+
+    }
+
+    car.position.x =
+        lanes[
+            Math.floor(Math.random() * lanes.length)
+        ];
+
+    car.position.y = 0.25;
+    car.rotation.y = Math.PI;
+    car.position.z = -40 - (i * 25);
+
+    scene.add(car);
+
+    trafficCars.push(car);
+
+},
+            
+            
             undefined,
 
             (error) => {
