@@ -9,6 +9,8 @@ export let trafficSpeed = 0.10;
 const loader = new GLTFLoader();
 
 const trafficModels = [
+    "./assets/models/sedan.glb",
+    "./assets/models/sedan-sports.glb",
     "./assets/models/suv.glb"
 ];
 
