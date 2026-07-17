@@ -66,3 +66,53 @@ export function createTraffic(scene) {
     }
 
 }
+
+export function updateTraffic() {
+
+    trafficCars.forEach(car => {
+
+        car.position.z += trafficSpeed;
+
+        if (car.position.z > 12) {
+
+            car.position.z = -120;
+
+            car.position.x =
+                lanes[
+                    Math.floor(Math.random() * lanes.length)
+                ];
+
+        }
+
+    });
+
+}
+
+export function checkCollision() {
+
+    if (!player) return false;
+
+    for (const car of trafficCars) {
+
+        if (
+            Math.abs(car.position.x - player.position.x) < 1.2 &&
+            Math.abs(car.position.z - player.position.z) < 2.5
+        ) {
+            return true;
+        }
+
+    }
+
+    return false;
+
+}
+
+export function increaseTrafficSpeed() {
+
+    if (trafficSpeed < 0.8) {
+
+        trafficSpeed += 0.02;
+
+    }
+
+}
