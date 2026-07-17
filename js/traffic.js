@@ -9,7 +9,7 @@ export let trafficSpeed = 0.10;
 const loader = new GLTFLoader();
 
 const trafficModels = [
-    "./assets/models/sedan.glb"
+    "./assets/models/suv.glb"
 ];
 
 const lanes = [-2.5, 0, 2.5];
