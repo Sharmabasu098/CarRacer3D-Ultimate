@@ -10,7 +10,16 @@ const loader = new GLTFLoader();
 
 const trafficModels = [
     "./assets/models/sedan.glb",
+    "./assets/models/sedan.glb",
+    "./assets/models/sedan.glb",
+    "./assets/models/sedan.glb",
+    "./assets/models/sedan.glb",
+
     "./assets/models/sedan-sports.glb",
+    "./assets/models/sedan-sports.glb",
+    "./assets/models/sedan-sports.glb",
+
+    "./assets/models/suv.glb",
     "./assets/models/suv.glb"
 ];
 
