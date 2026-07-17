@@ -5,6 +5,7 @@ export let player;
 
 const lanes = [-2.5, 0, 2.5];
 let currentLane = 1;
+let targetTilt = 0;
 
 export function createPlayer(scene) {
 
@@ -44,6 +45,16 @@ export function moveLane(direction) {
 
     if (currentLane < 0) currentLane = 0;
     if (currentLane > 2) currentLane = 2;
+
+    if (direction < 0) {
+
+        targetTilt = 0.25;
+
+    } else if (direction > 0) {
+
+        targetTilt = -0.25;
+
+    }
 
 }
 
