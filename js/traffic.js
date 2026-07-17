@@ -37,15 +37,16 @@ export function createTraffic(scene) {
 
                 const car = gltf.scene;
 
-                car.scale.set(2, 2, 2);
+                car.scale.set(1.5, 1.5, 1.5);
 
                 car.position.x =
                     lanes[
                         Math.floor(Math.random() * lanes.length)
                     ];
 
-                car.position.y = 0;
-                car.position.z = -20 - (i * 18);
+                car.position.y = 0.25;
+                car.rotation.y = Math.PI;
+                car.position.z = -40 - (i * 25);
 
                 scene.add(car);
 
