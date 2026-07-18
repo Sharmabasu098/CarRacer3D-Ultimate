@@ -42,6 +42,32 @@ export function createTraffic(scene) {
 
      const car = gltf.scene;
 
+     // Random color
+const colors = [
+    0xff0000, // Red
+    0x0000ff, // Blue
+    0x00ff00, // Green
+    0xffff00, // Yellow
+    0xff00ff, // Pink
+    0x00ffff, // Cyan
+    0xffffff, // White
+    0x111111  // Black
+];
+
+const randomColor =
+    colors[Math.floor(Math.random() * colors.length)];
+
+car.traverse((child) => {
+
+    if (child.isMesh) {
+
+        child.material = child.material.clone();
+        child.material.color.setHex(randomColor);
+
+    }
+
+});
+
      switch (randomModel) {
 
         case "./assets/models/truck.glb":
