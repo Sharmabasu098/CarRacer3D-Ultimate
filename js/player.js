@@ -65,4 +65,9 @@ export function updatePlayer() {
     player.position.x +=
         (lanes[currentLane] - player.position.x) * 0.20;
 
+    player.rotation.z +=
+        (targetTilt - player.rotation.z) * 0.15;
+
+    targetTilt *= 0.90;
+
 }
