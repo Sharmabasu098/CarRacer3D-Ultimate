@@ -25,6 +25,38 @@ const trafficModels = [
 
 const lanes = [-2.5, 0, 2.5];
 
+function randomCarColor(car) {
+
+    const colors = [
+        0xffffff, // White
+        0x111111, // Black
+        0xc0c0c0, // Silver
+        0xff0000, // Red
+        0x0066ff, // Blue
+        0xffff00, // Yellow
+        0x228b22  // Green
+    ];
+
+    const color =
+        colors[Math.floor(Math.random() * colors.length)];
+
+    car.traverse((child) => {
+
+        if (child.isMesh) {
+
+            child.material = child.material.clone();
+
+            child.material.color.setHex(color);
+
+            child.material.roughness = 0.35;
+            child.material.metalness = 0.6;
+
+        }
+
+    });
+
+}
+
 export function createTraffic(scene) {
 
     for (let i = 0; i < 5; i++) {
