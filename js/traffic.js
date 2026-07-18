@@ -59,7 +59,7 @@ function randomCarColor(car) {
 
 export function createTraffic(scene) {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
 
         const random = Math.random();
 
@@ -112,7 +112,7 @@ if (random < 0.50) {
 
     car.position.y = 0.25;
     car.rotation.y = Math.PI;
-    car.position.z = -40 - (i * 25);
+    car.position.z = -40 - (i * 20);
 
     scene.add(car);
 
