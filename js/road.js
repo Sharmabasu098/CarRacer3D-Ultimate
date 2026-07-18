@@ -35,6 +35,29 @@ export function createRoad(scene) {
 
     scene.add(road);
 
+    // Road Edge Lines
+const edgeMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffff00
+});
+
+const leftEdge = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.15, 200),
+    edgeMaterial
+);
+
+leftEdge.rotation.x = -Math.PI / 2;
+leftEdge.position.set(-4, 0.03, 0);
+scene.add(leftEdge);
+
+const rightEdge = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.15, 200),
+    edgeMaterial
+);
+
+rightEdge.rotation.x = -Math.PI / 2;
+rightEdge.position.set(4, 0.03, 0);
+scene.add(rightEdge);
+
     // Lane Lines
     const laneMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff
