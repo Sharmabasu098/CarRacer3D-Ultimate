@@ -113,9 +113,9 @@ if (random < 0.50) {
     car.position.y = 0.25;
     car.rotation.y = Math.PI;
     car.position.z = -40 - (i * 20);
+    car.userData.speed = 0.08 + Math.random() * 0.08;
 
     scene.add(car);
-    car.userData.speed = 0.08 + Math.random() * 0.08;
 
     trafficCars.push(car);
 
@@ -140,7 +140,7 @@ export function updateTraffic() {
 
     trafficCars.forEach(car => {
 
-      car.position.z += car.userData.speed + trafficSpeed;
+        car.position.z += car.userData.speed + trafficSpeed;
 
         if (car.position.z > 12) {
 
@@ -150,6 +150,9 @@ export function updateTraffic() {
                 lanes[
                     Math.floor(Math.random() * lanes.length)
                 ];
+
+            // NEW: Random speed every respawn
+            car.userData.speed = 0.08 + Math.random() * 0.08;
 
         }
 
