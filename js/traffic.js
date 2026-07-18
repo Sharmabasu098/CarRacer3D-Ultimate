@@ -83,51 +83,15 @@ if (random < 0.50) {
 
             randomModel,
             
- (gltf) => {
+gltf) => {
 
-     const car = gltf.scene;
+    const car = gltf.scene;
 
-     // Random color
-const colors = [
-    0xff0000, // Red
-    0x0000ff, // Blue
-    0x00ff00, // Green
-    0xffff00, // Yellow
-    0xff00ff, // Pink
-    0x00ffff, // Cyan
-    0xffffff, // White
-    0x111111  // Black
-];
+    randomCarColor(car);
 
-const randomColor =
-    colors[Math.floor(Math.random() * colors.length)];
-
-car.traverse((child) => {
-
-    if (child.isMesh) {
-
-        child.material = child.material.clone();
-        child.material.color.setHex(randomColor);
-
-    }
-
-});
-
-     switch (randomModel) {
-
-        case "./assets/models/truck.glb":
-            car.scale.set(0.9, 0.9, 0.9);
-            break;
-
-        case "./assets/models/van.glb":
-            car.scale.set(1.0, 1.0, 1.0);
-            break;
+    switch (randomModel) {
 
         case "./assets/models/suv.glb":
-            car.scale.set(1.2, 1.2, 1.2);
-            break;
-
-        case "./assets/models/taxi.glb":
             car.scale.set(1.2, 1.2, 1.2);
             break;
 
@@ -138,11 +102,7 @@ car.traverse((child) => {
         case "./assets/models/sedan-sports.glb":
             car.scale.set(1.0, 1.0, 1.0);
             break;
-
-        case "./assets/models/police.glb":
-            car.scale.set(1.1, 1.1, 1.1);
-            break;
-
+    
     }
 
     car.position.x =
