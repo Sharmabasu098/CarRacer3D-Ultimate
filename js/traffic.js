@@ -130,12 +130,19 @@ export function checkCollision() {
     if (!player) return false;
 
     for (const car of trafficCars) {
-if (
-    Math.abs(car.position.x - player.position.x) < 0.8 &&
-    Math.abs(car.position.z - player.position.z) < 1.2
-) {
-    return true;
-}    
+
+        if (
+            Math.abs(car.position.x - player.position.x) < 0.8 &&
+            Math.abs(car.position.z - player.position.z) < 1.2
+        ) {
+            return true;
+        }
+
+    }
+
+    return false;
+
+}
 
 export function increaseTrafficSpeed() {
 
@@ -146,3 +153,4 @@ export function increaseTrafficSpeed() {
     }
 
 }
+
