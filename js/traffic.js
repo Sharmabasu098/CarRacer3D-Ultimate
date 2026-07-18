@@ -83,7 +83,7 @@ if (random < 0.50) {
 
             randomModel,
             
-gltf) => {
+(gltf) => {
 
     const car = gltf.scene;
 
