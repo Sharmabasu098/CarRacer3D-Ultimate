@@ -115,6 +115,7 @@ if (random < 0.50) {
     car.position.z = -40 - (i * 20);
 
     scene.add(car);
+    car.userData.speed = 0.08 + Math.random() * 0.08;
 
     trafficCars.push(car);
 
@@ -139,7 +140,7 @@ export function updateTraffic() {
 
     trafficCars.forEach(car => {
 
-        car.position.z += trafficSpeed;
+      car.position.z += car.userData.speed + trafficSpeed;
 
         if (car.position.z > 12) {
 
