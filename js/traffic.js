@@ -29,10 +29,23 @@ export function createTraffic(scene) {
 
     for (let i = 0; i < 5; i++) {
 
-        const randomModel =
-            trafficModels[
-                Math.floor(Math.random() * trafficModels.length)
-            ];
+        const random = Math.random();
+
+let randomModel;
+
+if (random < 0.50) {
+
+    randomModel = "./assets/models/sedan.glb";
+
+} else if (random < 0.80) {
+
+    randomModel = "./assets/models/sedan-sports.glb";
+
+} else {
+
+    randomModel = "./assets/models/suv.glb";
+
+}
 
         loader.load(
 
