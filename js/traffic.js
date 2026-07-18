@@ -140,8 +140,42 @@ export function updateTraffic() {
 
     trafficCars.forEach(car => {
 
+        // Forward movement (random speed)
         car.position.z += car.userData.speed + trafficSpeed;
 
+        // Random lane change
+        if (Math.random() < 0.002) {
+
+            const newLane =
+                lanes[
+                    Math.floor(Math.random() * lanes.length)
+                ];
+
+            car.userData.targetLane = newLane;
+
+        }
+
+        // Smooth lane movement
+        if (car.userData.targetLane !== undefined) {
+
+            car.position.x +=
+                (car.userData.targetLane - car.position.x) * 0.05;
+
+            if (
+                Math.abs(
+                    car.position.x - car.userData.targetLane
+                ) < 0.05
+            ) {
+
+                car.position.x = car.userData.targetLane;
+
+                delete car.userData.targetLane;
+
+            }
+
+        }
+
+        // Respawn car
         if (car.position.z > 12) {
 
             car.position.z = -120;
@@ -151,7 +185,7 @@ export function updateTraffic() {
                     Math.floor(Math.random() * lanes.length)
                 ];
 
-            // NEW: Random speed every respawn
+            // New random speed
             car.userData.speed = 0.08 + Math.random() * 0.08;
 
         }
