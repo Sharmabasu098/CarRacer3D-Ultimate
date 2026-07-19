@@ -10,7 +10,8 @@ let currentLane = 1;
 let targetTilt = 0;
 
 export function createPlayer(scene) {
-    const flameGeo = new THREE.ConeGeometry(0.12, 0.45, 12);
+    
+const flameGeo = new THREE.ConeGeometry(0.12, 0.45, 12);
 
 const flameMat = new THREE.MeshBasicMaterial({
     color: 0x00ccff
