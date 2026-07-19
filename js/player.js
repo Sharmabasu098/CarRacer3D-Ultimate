@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
 export let nitroFlame;
+
 export let player;
 
 const lanes = [-2.5, 0, 2.5];
