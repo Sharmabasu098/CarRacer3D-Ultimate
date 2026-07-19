@@ -178,6 +178,54 @@ export function updateTraffic() {
 
         }
 
+        // AI Overtake
+for (const other of trafficCars) {
+
+    if (other === car) continue;
+
+    if (
+
+        Math.abs(other.position.x - car.position.x) < 0.5 &&
+        other.position.z > car.position.z &&
+        other.position.z - car.position.z < 6
+
+    ) {
+
+        const leftLane = car.position.x - 2.5;
+        const rightLane = car.position.x + 2.5;
+
+        if (
+            lanes.includes(leftLane) &&
+            isLaneFree(car, leftLane)
+        ) {
+
+            car.userData.targetLane = leftLane;
+
+        }
+        else if (
+            lanes.includes(rightLane) &&
+            isLaneFree(car, rightLane)
+        ) {
+
+            car.userData.targetLane = rightLane;
+
+        }
+        else {
+
+            // No free lane → slow down a little
+            car.userData.speed = Math.max(
+                0.05,
+                car.userData.speed - 0.002
+            );
+
+        }
+
+        break;
+
+    }
+
+}
+
         // Smooth lane movement
         if (car.userData.targetLane !== undefined) {
 
