@@ -25,31 +25,36 @@ export function createPlayer(scene) {
             player.rotation.y = Math.PI;
 
             // =========================
-            // Nitro Flame
-            // =========================
+// Nitro Glow Sprite
+// =========================
 
-            const flameGeo =
-                new THREE.ConeGeometry(0.12, 0.45, 12);
+const textureLoader = new THREE.TextureLoader();
 
-            const flameMat =
-                new THREE.MeshBasicMaterial({
+const glowTexture = textureLoader.load(
+    "./assets/textures/glow.png"
+);
 
-                    color: 0x00ccff
+const glowMaterial = new THREE.SpriteMaterial({
 
-                });
+    map: glowTexture,
+    color: 0x33ccff,
+    transparent: true,
+    opacity: 0.9,
+    depthWrite: false
 
-            nitroFlame =
-                new THREE.Mesh(flameGeo, flameMat);
+});
 
-            nitroFlame.rotation.x = Math.PI;
+nitroFlame = new THREE.Sprite(glowMaterial);
 
-            nitroFlame.position.set(0, 0.18, 0.85);
+nitroFlame.scale.set(0.45, 0.9, 1);
 
-            nitroFlame.visible = false;
+nitroFlame.position.set(0, 0.18, 1.0);
 
-            player.add(nitroFlame);
+nitroFlame.visible = false;
 
-            // =========================
+player.add(nitroFlame);
+
+// =========================
 
             scene.add(player);
 
