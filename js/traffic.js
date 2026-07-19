@@ -136,6 +136,29 @@ if (random < 0.50) {
 
 }
 
+function isLaneFree(car, targetLane) {
+
+    for (const other of trafficCars) {
+
+        if (other === car) continue;
+
+        if (
+
+            Math.abs(other.position.x - targetLane) < 0.5 &&
+            Math.abs(other.position.z - car.position.z) < 8
+
+        ) {
+
+            return false;
+
+        }
+
+    }
+
+    return true;
+
+}
+
 export function updateTraffic() {
 
     trafficCars.forEach(car => {
