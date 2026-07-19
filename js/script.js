@@ -1,8 +1,16 @@
 import * as THREE from "three";
 
 import { scene, camera, renderer } from "./scene.js";
+
 import { createRoad, updateRoad } from "./road.js";
-import { createPlayer, updatePlayer, player } from "./player.js";
+
+import {
+    createPlayer,
+    updatePlayer,
+    player,
+    nitroFlame
+} from "./player.js";
+
 import { setupControls } from "./controls.js";
 
 import {
