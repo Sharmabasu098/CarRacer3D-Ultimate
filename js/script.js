@@ -32,6 +32,20 @@ import {
     updateNitro,
     nitroActive
 } from "./Nitro.js";
+
+if (nitroFlame) {
+
+    nitroFlame.visible = nitroActive;
+
+    if (nitroActive) {
+
+        const s = 1 + Math.sin(Date.now() * 0.03) * 0.25;
+
+        nitroFlame.scale.set(s, s, s);
+
+    }
+
+}
    
 // ----------------------
 // Start Screen
