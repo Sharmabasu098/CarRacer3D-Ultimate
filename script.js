@@ -8,7 +8,8 @@ import {
 import {
     createPlayer,
     updatePlayer,
-    player
+    player,
+    nitroFlame
 } from "./player.js";
 
 import {
