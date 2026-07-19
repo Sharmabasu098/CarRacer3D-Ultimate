@@ -51,6 +51,10 @@ function animate() {
     );
 
     updateTraffic();
+    
+    if (nitroFlame) {
+
+    nitroFlame.visible
 
     // Camera Follow
     if (player) {
