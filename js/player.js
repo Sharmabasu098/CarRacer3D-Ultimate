@@ -1,17 +1,71 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-export let nitroFlame;
-
 export let player;
+export let nitroFlame;
 
 const lanes = [-2.5, 0, 2.5];
 let currentLane = 1;
 let targetTilt = 0;
 
 export function createPlayer(scene) {
-    
-    const loader = new GLTFLoader();   
+
+    const loader = new GLTFLoader();
+
+    loader.load(
+
+        "./assets/models/race.glb",
+
+        (gltf) => {
+
+            player = gltf.scene;
+
+            player.scale.set(0.7, 0.7, 0.7);
+            player.position.set(0, 0, 4);
+            player.rotation.y = Math.PI;
+
+            // =========================
+            // Nitro Flame
+            // =========================
+
+            const flameGeo =
+                new THREE.ConeGeometry(0.12, 0.45, 12);
+
+            const flameMat =
+                new THREE.MeshBasicMaterial({
+
+                    color: 0x00ccff
+
+                });
+
+            nitroFlame =
+                new THREE.Mesh(flameGeo, flameMat);
+
+            nitroFlame.rotation.x = Math.PI;
+
+            nitroFlame.position.set(0, 0.18, 0.85);
+
+            nitroFlame.visible = false;
+
+            player.add(nitroFlame);
+
+            // =========================
+
+            scene.add(player);
+
+        },
+
+        undefined,
+
+        (error) => {
+
+            console.error("Model Load Error:", error);
+
+        }
+
+    );
+
+}
 
 export function moveLane(direction) {
 
@@ -36,37 +90,11 @@ export function updatePlayer() {
 
     if (!player) return;
 
+    // Smooth lane movement
     player.position.x +=
         (lanes[currentLane] - player.position.x) * 0.20;
-    
-loader.load(
 
-        "./assets/models/race.glb",
-
-        (gltf) => {
-
-            player = gltf.scene;
-
-            player.scale.set(0.7, 0.7, 0.7);
-            player.position.set(0, 0, 4);
-            player.rotation.y = Math.PI;
-
-            scene.add(player);
-
-        },
-
-        undefined,
-
-        (error) => {
-
-            console.error("Model Load Error:", error);
-
-        }
-
-    );
-
-}
-    
+    // Smooth tilt
     player.rotation.z +=
         (targetTilt - player.rotation.z) * 0.15;
 
