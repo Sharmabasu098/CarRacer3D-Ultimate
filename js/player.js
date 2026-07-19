@@ -1,45 +1,145 @@
-import * as THREE from â€œthreeâ€; import { GLTFLoader } from
-â€œthree/addons/loaders/GLTFLoader.jsâ€;
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-export let player; export let nitroFlame;
+export let player;
+export let nitroFlame;
 
-const lanes = [-2.5, 0, 2.5]; let currentLane = 1; let targetTilt = 0;
+const lanes = [-2.5, 0, 2.5];
 
-export function createPlayer(scene) { const loader = new GLTFLoader();
-loader.load(â€œ./assets/models/race.glbâ€,(gltf)=>{ player=gltf.scene;
-player.scale.set(0.7,0.7,0.7); player.position.set(0,0,4);
-player.rotation.y=Math.PI;
+let currentLane = 1;
+let targetTilt = 0;
 
-    nitroFlame=new THREE.Group();
+export function createPlayer(scene) {
 
-    const mat=new THREE.MeshBasicMaterial({
-      color:0x33ccff,
-      transparent:true,
-      opacity:0.9
-    });
+    const loader = new GLTFLoader();
 
-    const left=new THREE.Mesh(new THREE.ConeGeometry(0.06,0.30,10),mat.clone());
-    left.rotation.x=Math.PI;
-    left.position.set(-0.12,0.15,1.0);
-    nitroFlame.add(left);
+    loader.load(
 
-    const right=new THREE.Mesh(new THREE.ConeGeometry(0.06,0.30,10),mat.clone());
-    right.rotation.x=Math.PI;
-    right.position.set(0.12,0.15,1.0);
-    nitroFlame.add(right);
+        "./assets/models/race.glb",
 
-    nitroFlame.visible=false;
-    player.add(nitroFlame);
+        (gltf) => {
 
-    scene.add(player);
+            player = gltf.scene;
 
-},undefined,(e)=>console.error(e)); }
+            // Player Settings
+            player.scale.set(0.7, 0.7, 0.7);
+            player.position.set(0, 0, 4);
+            player.rotation.y = Math.PI;
 
-export function moveLane(direction){ currentLane+=direction;
-if(currentLane<0)currentLane=0; if(currentLane>2)currentLane=2;
-if(direction<0)targetTilt=0.25; else if(direction>0)targetTilt=-0.25; }
+            // =========================
+            // Nitro Flames
+            // =========================
 
-export function updatePlayer(){ if(!player)return;
-player.position.x+=(lanes[currentLane]-player.position.x)0.20;
-player.rotation.z+=(targetTilt-player.rotation.z)0.15; targetTilt*=0.90;
-                              }
+            nitroFlame = new THREE.Group();
+
+            const flameMaterial = new THREE.MeshBasicMaterial({
+
+                color: 0x33ccff,
+                transparent: true,
+                opacity: 0.9
+
+            });
+
+            // Left Flame
+            const leftFlame = new THREE.Mesh(
+
+                new THREE.ConeGeometry(0.06, 0.30, 10),
+
+                flameMaterial.clone()
+
+            );
+
+            leftFlame.rotation.x = Math.PI;
+            leftFlame.position.set(-0.12, 0.15, 1.0);
+
+            nitroFlame.add(leftFlame);
+
+            // Right Flame
+            const rightFlame = new THREE.Mesh(
+
+                new THREE.ConeGeometry(0.06, 0.30, 10),
+
+                flameMaterial.clone()
+
+            );
+
+            rightFlame.rotation.x = Math.PI;
+            rightFlame.position.set(0.12, 0.15, 1.0);
+
+            nitroFlame.add(rightFlame);
+
+            // Center Glow
+            const glow = new THREE.Mesh(
+
+                new THREE.SphereGeometry(0.08, 12, 12),
+
+                new THREE.MeshBasicMaterial({
+
+                    color: 0x66ddff,
+                    transparent: true,
+                    opacity: 0.8
+
+                })
+
+            );
+
+            glow.position.set(0, 0.15, 0.92);
+
+            nitroFlame.add(glow);
+
+            nitroFlame.visible = false;
+
+            player.add(nitroFlame);
+
+            // =========================
+
+            scene.add(player);
+
+        },
+
+        undefined,
+
+        (error) => {
+
+            console.error("Model Load Error:", error);
+
+        }
+
+    );
+
+}
+
+export function moveLane(direction) {
+
+    currentLane += direction;
+
+    if (currentLane < 0) currentLane = 0;
+    if (currentLane > 2) currentLane = 2;
+
+    if (direction < 0) {
+
+        targetTilt = 0.25;
+
+    } else if (direction > 0) {
+
+        targetTilt = -0.25;
+
+    }
+
+}
+
+export function updatePlayer() {
+
+    if (!player) return;
+
+    // Smooth Lane Movement
+    player.position.x +=
+        (lanes[currentLane] - player.position.x) * 0.20;
+
+    // Smooth Tilt
+    player.rotation.z +=
+        (targetTilt - player.rotation.z) * 0.15;
+
+    targetTilt *= 0.90;
+
+}
