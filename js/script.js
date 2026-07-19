@@ -19,6 +19,11 @@ import {
     coinCount,
     loadCoins
 } from "./coin.js";
+
+import {
+    updateNitro,
+    nitroActive
+} from "./Nitro.js";
    
 // ----------------------
 // Start Screen
@@ -139,60 +144,81 @@ function animate() {
 
     }
 
-        updateRoad();
+    // Road & Player
+    updateRoad();
+    updatePlayer();
 
-        updatePlayer();
+    // Nitro
+    if (nitroActive) {
 
-        updateTraffic();
+        updateTraffic(0.15);
 
-        // Coins
-        updateCoins();
-        collectCoins();
+    } else {
 
-        score += 0.05;
+        updateTraffic(0);
+
+    }
+
+    updateNitro();
+
+    // Coins
+    updateCoins();
+    collectCoins();
+
+    // Score
+    score += 0.05;
 
     scoreElement.textContent =
         "Score: " + Math.floor(score);
 
     coinsElement.textContent =
-    "🪙 Coins: " + coinCount;
+        "🪙 Coins: " + coinCount;
 
-    const level =
-        Math.floor(score / 100);
+    // Difficulty
+    const level = Math.floor(score / 100);
 
     if (level > lastSpeedLevel) {
 
         lastSpeedLevel = level;
-
         increaseTrafficSpeed();
 
     }
 
+    // Collision
     if (checkCollision()) {
 
         gameOver = true;
-
         gameOverElement.style.display = "block";
-
         return;
 
     }
 
+    // Camera
     if (player) {
 
-    camera.position.x = player.position.x;
-camera.position.y = 3.5;
-camera.position.z = 9;
+        camera.position.x = player.position.x;
 
-camera.lookAt(
-    player.position.x,
-    1,
-    -5
-);
+        if (nitroActive) {
+
+            camera.position.y = 3.9;
+            camera.position.z = 10.5;
+
+        } else {
+
+            camera.position.y = 3.5;
+            camera.position.z = 9;
+
+        }
+
+        camera.lookAt(
+            player.position.x,
+            1,
+            -5
+        );
 
     }
 
-renderer.render(scene, camera);
+    renderer.render(scene, camera);
 
 }
 
