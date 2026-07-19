@@ -1,46 +1,36 @@
-nitroBar =
-    document.getElementById("nitroBar");
+import { nitroFlame } from â€œ./player.jsâ€;
 
-const nitroBtn =
-    document.getElementById("nitroBtn");
+export let nitroActive = false;
 
-nitroBtn.addEventListener("touchstart", () => {
+let nitroTime = 0; const NITRO_DURATION = 3000;
 
-    if (nitro > 20) {
+export function activateNitro() { nitroActive = true; nitroTime =
+performance.now();
 
-        nitroActive = true;
-
+    if (nitroFlame) {
+        nitroFlame.visible = true;
     }
-
-});
-
-nitroBtn.addEventListener("touchend", () => {
-
-    nitroActive = false;
-
-});
-
-export function updateNitro() {
-
-    if (nitroActive) {
-
-        nitro -= 0.6;
-
-        if (nitro <= 0) {
-
-            nitro = 0;
-            nitroActive = false;
-
-        }
-
-    } else {
-
-        nitro += 0.25;
-
-        if (nitro > 100) nitro = 100;
-
-    }
-
-    nitroBar.style.width = nitro + "%";
 
 }
+
+export function updateNitro() { if (!nitroActive) return;
+
+    const elapsed = performance.now() - nitroTime;
+
+    if (nitroFlame) {
+        const s = 1 + Math.sin(performance.now() * 0.03) * 0.25;
+        nitroFlame.scale.set(s, s, s);
+    }
+
+    if (elapsed >= NITRO_DURATION) {
+        nitroActive = false;
+
+        if (nitroFlame) {
+            nitroFlame.visible = false;
+            nitroFlame.scale.set(1,1,1);
+        }
+    }
+
+}
+
+export function isNitroActive() { return nitroActive; }
