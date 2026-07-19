@@ -1,103 +1,45 @@
-import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import * as THREE from â€œthreeâ€; import { GLTFLoader } from
+â€œthree/addons/loaders/GLTFLoader.jsâ€;
 
-export let player;
-export let nitroFlame;
+export let player; export let nitroFlame;
 
-const lanes = [-2.5, 0, 2.5];
-let currentLane = 1;
-let targetTilt = 0;
+const lanes = [-2.5, 0, 2.5]; let currentLane = 1; let targetTilt = 0;
 
-export function createPlayer(scene) {
+export function createPlayer(scene) { const loader = new GLTFLoader();
+loader.load(â€œ./assets/models/race.glbâ€,(gltf)=>{ player=gltf.scene;
+player.scale.set(0.7,0.7,0.7); player.position.set(0,0,4);
+player.rotation.y=Math.PI;
 
-    const loader = new GLTFLoader();
+    nitroFlame=new THREE.Group();
 
-    loader.load(
+    const mat=new THREE.MeshBasicMaterial({
+      color:0x33ccff,
+      transparent:true,
+      opacity:0.9
+    });
 
-        "./assets/models/race.glb",
+    const left=new THREE.Mesh(new THREE.ConeGeometry(0.06,0.30,10),mat.clone());
+    left.rotation.x=Math.PI;
+    left.position.set(-0.12,0.15,1.0);
+    nitroFlame.add(left);
 
-        (gltf) => {
+    const right=new THREE.Mesh(new THREE.ConeGeometry(0.06,0.30,10),mat.clone());
+    right.rotation.x=Math.PI;
+    right.position.set(0.12,0.15,1.0);
+    nitroFlame.add(right);
 
-            player = gltf.scene;
+    nitroFlame.visible=false;
+    player.add(nitroFlame);
 
-            player.scale.set(0.7, 0.7, 0.7);
-            player.position.set(0, 0, 4);
-            player.rotation.y = Math.PI; 
-            
-// =========================
-// Nitro Glow
-// =========================
+    scene.add(player);
 
-const glowGeometry = new THREE.SphereGeometry(0.12, 16, 16);
+},undefined,(e)=>console.error(e)); }
 
-const glowMaterial = new THREE.MeshBasicMaterial({
+export function moveLane(direction){ currentLane+=direction;
+if(currentLane<0)currentLane=0; if(currentLane>2)currentLane=2;
+if(direction<0)targetTilt=0.25; else if(direction>0)targetTilt=-0.25; }
 
-    color: 0x33ccff,
-    transparent: true,
-    opacity: 0.85
-
-});
-
-nitroFlame = new THREE.Mesh(
-    glowGeometry,
-    glowMaterial
-);
-
-nitroFlame.position.set(0, 0.18, 1.0);
-
-nitroFlame.visible = false;
-
-player.add(nitroFlame);
-
-// =========================
-
-            scene.add(player);
-
-        },
-
-        undefined,
-
-        (error) => {
-
-            console.error("Model Load Error:", error);
-
-        }
-
-    );
-
-}
-
-export function moveLane(direction) {
-
-    currentLane += direction;
-
-    if (currentLane < 0) currentLane = 0;
-    if (currentLane > 2) currentLane = 2;
-
-    if (direction < 0) {
-
-        targetTilt = 0.25;
-
-    } else if (direction > 0) {
-
-        targetTilt = -0.25;
-
-    }
-
-}
-
-export function updatePlayer() {
-
-    if (!player) return;
-
-    // Smooth lane movement
-    player.position.x +=
-        (lanes[currentLane] - player.position.x) * 0.20;
-
-    // Smooth tilt
-    player.rotation.z +=
-        (targetTilt - player.rotation.z) * 0.15;
-
-    targetTilt *= 0.90;
-
-}
+export function updatePlayer(){ if(!player)return;
+player.position.x+=(lanes[currentLane]-player.position.x)0.20;
+player.rotation.z+=(targetTilt-player.rotation.z)0.15; targetTilt*=0.90;
+                              }
