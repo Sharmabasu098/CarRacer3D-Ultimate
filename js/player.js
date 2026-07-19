@@ -22,30 +22,26 @@ export function createPlayer(scene) {
 
             player.scale.set(0.7, 0.7, 0.7);
             player.position.set(0, 0, 4);
-            player.rotation.y = Math.PI;
+            player.rotation.y = Math.PI; 
+            
 // =========================
-// Nitro Glow Sprite
+// Nitro Glow
 // =========================
 
-const textureLoader = new THREE.TextureLoader();
+const glowGeometry = new THREE.SphereGeometry(0.12, 16, 16);
 
-const glowTexture = textureLoader.load(
-    "./assets/textures/glow.png"
-);
+const glowMaterial = new THREE.MeshBasicMaterial({
 
-const glowMaterial = new THREE.SpriteMaterial({
-
-    map: glowTexture,
     color: 0x33ccff,
     transparent: true,
-    opacity: 0.9,
-    depthWrite: false
+    opacity: 0.85
 
 });
 
-nitroFlame = new THREE.Sprite(glowMaterial);
-
-nitroFlame.scale.set(0.45, 0.9, 1);
+nitroFlame = new THREE.Mesh(
+    glowGeometry,
+    glowMaterial
+);
 
 nitroFlame.position.set(0, 0.18, 1.0);
 
