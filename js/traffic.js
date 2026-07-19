@@ -1,53 +1,44 @@
-import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { player } from "./player.js";
+import * as THREE from â€œthreeâ€; import { GLTFLoader } from
+â€œthree/addons/loaders/GLTFLoader.jsâ€; import { player } from
+â€œ./player.jsâ€;
 
-export const trafficCars = [];
-
-export let trafficSpeed = 0.10;
+export const trafficCars = []; export let trafficSpeed = 0.10;
 
 const loader = new GLTFLoader();
 
-const trafficModels = [
-    "./assets/models/sedan.glb",
-    "./assets/models/sedan.glb",
-    "./assets/models/sedan.glb",
-    "./assets/models/sedan.glb",
-    "./assets/models/sedan.glb",
+const lanes = [-2.5,0,2.5];
 
-    "./assets/models/sedan-sports.glb",
-    "./assets/models/sedan-sports.glb",
-    "./assets/models/sedan-sports.glb",
+function pickRandomModel(){
 
-    "./assets/models/suv.glb",
-    "./assets/models/suv.glb"
-];
+    const r = Math.random();
 
-const lanes = [-2.5, 0, 2.5];
+    if(r < 0.50) return "./assets/models/sedan.glb";
+    if(r < 0.80) return "./assets/models/sedan-sports.glb";
 
-function randomCarColor(car) {
+    return "./assets/models/suv.glb";
 
-    const colors = [
-        0xffffff, // White
-        0x111111, // Black
-        0xc0c0c0, // Silver
-        0xff0000, // Red
-        0x0066ff, // Blue
-        0xffff00, // Yellow
-        0x228b22  // Green
+}
+
+function randomCarColor(car){
+
+    const colors=[
+        0xffffff,
+        0x111111,
+        0xc0c0c0,
+        0xff0000,
+        0x0066ff,
+        0xffff00,
+        0x228b22
     ];
 
-    const color =
-        colors[Math.floor(Math.random() * colors.length)];
+    const color = colors[Math.floor(Math.random()*colors.length)];
 
-    car.traverse((child) => {
+    car.traverse(child=>{
 
-        if (child.isMesh) {
+        if(child.isMesh){
 
             child.material = child.material.clone();
-
             child.material.color.setHex(color);
-
             child.material.roughness = 0.35;
             child.material.metalness = 0.6;
 
@@ -57,210 +48,74 @@ function randomCarColor(car) {
 
 }
 
-export function createTraffic(scene) {
+export function createTraffic(scene){
 
-    for (let i = 0; i < 10; i++) {
+    for(let i=0;i<5;i++){
 
-        const random = Math.random();
+        const model = pickRandomModel();
 
-let randomModel;
+        loader.load(model,(gltf)=>{
 
-if (random < 0.50) {
+            const car = gltf.scene;
 
-    randomModel = "./assets/models/sedan.glb";
+            randomCarColor(car);
 
-} else if (random < 0.80) {
+            if(model.includes("suv")) car.scale.set(1.2,1.2,1.2);
+            else if(model.includes("sedan-sports")) car.scale.set(1.0,1.0,1.0);
+            else car.scale.set(1.1,1.1,1.1);
 
-    randomModel = "./assets/models/sedan-sports.glb";
+            car.position.x = lanes[Math.floor(Math.random()*3)];
+            car.position.y = 0.25;
+            car.position.z = -40-(i*25);
+            car.rotation.y = Math.PI;
 
-} else {
+            car.userData.speed = 0.08 + Math.random()*0.08;
 
-    randomModel = "./assets/models/suv.glb";
+            scene.add(car);
+            trafficCars.push(car);
 
-}
-
-        loader.load(
-
-            randomModel,
-            
-(gltf) => {
-
-    const car = gltf.scene;
-
-    randomCarColor(car);
-
-    switch (randomModel) {
-
-        case "./assets/models/suv.glb":
-            car.scale.set(1.2, 1.2, 1.2);
-            break;
-
-        case "./assets/models/sedan.glb":
-            car.scale.set(1.1, 1.1, 1.1);
-            break;
-
-        case "./assets/models/sedan-sports.glb":
-            car.scale.set(1.0, 1.0, 1.0);
-            break;
-    
-    }
-
-    car.position.x =
-        lanes[
-            Math.floor(Math.random() * lanes.length)
-        ];
-
-    car.position.y = 0.25;
-    car.rotation.y = Math.PI;
-    car.position.z = -40 - (i * 20);
-    car.userData.speed = 0.08 + Math.random() * 0.08;
-
-    scene.add(car);
-
-    trafficCars.push(car);
-
-},
-            
-            
-            undefined,
-
-            (error) => {
-
-                console.error("Traffic Model Error:", error);
-
-            }
-
-        );
+        });
 
     }
 
 }
 
-function isLaneFree(car, targetLane) {
+export function updateTraffic(extraSpeed=0){
 
-    for (const other of trafficCars) {
+    trafficCars.forEach(car=>{
 
-        if (other === car) continue;
+        car.position.z += trafficSpeed + car.userData.speed + extraSpeed;
 
-        if (
+        for(const other of trafficCars){
 
-            Math.abs(other.position.x - targetLane) < 0.5 &&
-            Math.abs(other.position.z - car.position.z) < 8
+            if(car===other) continue;
 
-        ) {
+            if(Math.abs(car.position.x-other.position.x)<0.1 &&
+               other.position.z>car.position.z &&
+               other.position.z-car.position.z<5){
 
-            return false;
+                const free = lanes.find(l=>
+                    !trafficCars.some(c=>
+                        c!==car &&
+                        Math.abs(c.position.x-l)<0.1 &&
+                        Math.abs(c.position.z-car.position.z)<6
+                    )
+                );
 
-        }
-
-    }
-
-    return true;
-
-}
-
-export function updateTraffic() {
-
-    trafficCars.forEach(car => {
-
-        // Forward movement (random speed)
-        car.position.z += car.userData.speed + trafficSpeed;
-
-        // Random lane change
-        if (
-    Math.random() < 0.002 &&
-    !isPlayerNear(car)
-) {
-
-            const newLane =
-                lanes[
-                    Math.floor(Math.random() * lanes.length)
-                ];
-
-            car.userData.targetLane = newLane;
-
-        }
-
-        // AI Overtake
-for (const other of trafficCars) {
-
-    if (other === car) continue;
-
-    if (
-
-        Math.abs(other.position.x - car.position.x) < 0.5 &&
-        other.position.z > car.position.z &&
-        other.position.z - car.position.z < 6
-
-    ) {
-
-        const leftLane = car.position.x - 2.5;
-        const rightLane = car.position.x + 2.5;
-
-        if (
-            lanes.includes(leftLane) &&
-            isLaneFree(car, leftLane)
-        ) {
-
-            car.userData.targetLane = leftLane;
-
-        }
-        else if (
-            lanes.includes(rightLane) &&
-            isLaneFree(car, rightLane)
-        ) {
-
-            car.userData.targetLane = rightLane;
-
-        }
-        else {
-
-            // No free lane → slow down a little
-            car.userData.speed = Math.max(
-                0.05,
-                car.userData.speed - 0.002
-            );
-
-        }
-
-        break;
-
-    }
-
-}
-
-        // Smooth lane movement
-        if (car.userData.targetLane !== undefined) {
-
-            car.position.x +=
-                (car.userData.targetLane - car.position.x) * 0.05;
-
-            if (
-                Math.abs(
-                    car.position.x - car.userData.targetLane
-                ) < 0.05
-            ) {
-
-                car.position.x = car.userData.targetLane;
-
-                delete car.userData.targetLane;
+                if(free!==undefined){
+                    car.position.x = free;
+                }
 
             }
 
         }
 
-        // Respawn car
-        if (car.position.z > 12) {
+        if(car.position.z>12){
 
-            car.position.z = -120;
-
-            car.position.x =
-                lanes[
-                    Math.floor(Math.random() * lanes.length)
-                ];
-
-            // New random speed
-            car.userData.speed = 0.08 + Math.random() * 0.08;
+            car.position.z=-120-Math.random()*40;
+            car.position.x=lanes[Math.floor(Math.random()*3)];
+            car.userData.speed=0.08+Math.random()*0.08;
+            randomCarColor(car);
 
         }
 
@@ -268,16 +123,16 @@ for (const other of trafficCars) {
 
 }
 
-export function checkCollision() {
+export function checkCollision(){
 
-    if (!player) return false;
+    if(!player) return false;
 
-    for (const car of trafficCars) {
+    for(const car of trafficCars){
 
-        if (
-            Math.abs(car.position.x - player.position.x) < 0.8 &&
-            Math.abs(car.position.z - player.position.z) < 1.2
-        ) {
+        if(
+            Math.abs(car.position.x-player.position.x)<0.8 &&
+            Math.abs(car.position.z-player.position.z)<1.2
+        ){
             return true;
         }
 
@@ -287,13 +142,10 @@ export function checkCollision() {
 
 }
 
-export function increaseTrafficSpeed() {
+export function increaseTrafficSpeed(){
 
-    if (trafficSpeed < 0.8) {
-
-        trafficSpeed += 0.02;
-
+    if(trafficSpeed<0.8){
+        trafficSpeed+=0.02;
     }
 
 }
-
