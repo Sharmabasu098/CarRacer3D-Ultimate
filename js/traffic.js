@@ -167,7 +167,10 @@ export function updateTraffic() {
         car.position.z += car.userData.speed + trafficSpeed;
 
         // Random lane change
-        if (Math.random() < 0.002) {
+        if (
+    Math.random() < 0.002 &&
+    !isPlayerNear(car)
+) {
 
             const newLane =
                 lanes[
