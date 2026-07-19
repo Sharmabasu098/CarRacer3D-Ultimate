@@ -1,7 +1,4 @@
-export let nitro = 100;
-export let nitroActive = false;
-
-const nitroBar =
+nitroBar =
     document.getElementById("nitroBar");
 
 const nitroBtn =
