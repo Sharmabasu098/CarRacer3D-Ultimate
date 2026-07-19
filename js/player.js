@@ -23,8 +23,7 @@ export function createPlayer(scene) {
             player.scale.set(0.7, 0.7, 0.7);
             player.position.set(0, 0, 4);
             player.rotation.y = Math.PI;
-
-            // =========================
+// =========================
 // Nitro Glow Sprite
 // =========================
 
