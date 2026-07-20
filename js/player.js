@@ -87,7 +87,7 @@ export function createPlayer(scene) {
 
             nitroFlame.add(glow);
 
-            nitroFlame.visible = false;
+            nitroFlame.visible = true;
 
             player.add(nitroFlame);
 
