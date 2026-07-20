@@ -1,6 +1,6 @@
-import * as THREE from â€œthreeâ€; import { GLTFLoader } from
-â€œthree/addons/loaders/GLTFLoader.jsâ€; import { player } from
-â€œ./player.jsâ€;
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { player } from "./player.js";
 
 export const trafficCars = []; export let trafficSpeed = 0.10;
 
