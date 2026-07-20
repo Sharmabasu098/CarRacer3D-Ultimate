@@ -101,12 +101,12 @@ startBtn.addEventListener("click", () => {
     }, 1000);
 
 });
-
 restartBtn.addEventListener("click", () => {
 
-    location.reload
+    location.reload();
 
-  });
+});
+
 
 // =====================
 // Lights
