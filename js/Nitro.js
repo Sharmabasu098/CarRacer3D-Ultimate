@@ -23,13 +23,16 @@ export function updateNitro() {
     const elapsed = performance.now() - nitroTime;
 
     if (nitroFlame) {
+        const t = performance.now() * 0.02;
 
-        const scale =
-            1 + Math.sin(performance.now() * 0.03) * 0.25;
+nitroFlame.children.forEach((part, index) => {
 
-        nitroFlame.scale.set(scale, scale, scale);
+    const s =
+        1 + Math.sin(t + index) * 0.15;
 
-    }
+    part.scale.set(s, s, s);
+
+});
 
     if (elapsed >= NITRO_DURATION) {
 
