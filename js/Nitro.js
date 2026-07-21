@@ -23,16 +23,18 @@ export function updateNitro() {
     const elapsed = performance.now() - nitroTime;
 
     if (nitroFlame) {
+
         const t = performance.now() * 0.02;
 
-nitroFlame.children.forEach((part, index) => {
+        nitroFlame.children.forEach((part, index) => {
 
-    const s =
-        1 + Math.sin(t + index) * 0.15;
+            const s = 1 + Math.sin(t + index) * 0.15;
 
-    part.scale.set(s, s, s);
+            part.scale.set(s, s, s);
 
-});
+        });
+
+    }
 
     if (elapsed >= NITRO_DURATION) {
 
@@ -41,16 +43,11 @@ nitroFlame.children.forEach((part, index) => {
         if (nitroFlame) {
 
             nitroFlame.visible = false;
+
             nitroFlame.scale.set(1, 1, 1);
 
         }
 
     }
-
-}
-
-export function isNitroActive() {
-
-    return nitroActive;
 
 }
