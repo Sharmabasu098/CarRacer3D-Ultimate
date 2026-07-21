@@ -42,51 +42,49 @@ export function createPlayer(scene) {
 
             // Left Flame
             const leftFlame = new THREE.Mesh(
+    new THREE.ConeGeometry(0.04, 0.35, 12),
+    new THREE.MeshBasicMaterial({
+        color: 0x00aaff,
+        transparent: true,
+        opacity: 1
+    })
+);
 
-                new THREE.ConeGeometry(0.06, 0.30, 10),
+leftFlame.rotation.x = Math.PI;
+leftFlame.position.set(-0.12, 0.12, 0.95);
 
-                flameMaterial.clone()
-
-            );
-
-            leftFlame.rotation.x = -Math.PI / 2;
-            leftFlame.position.set(-0.35, 0.45, -1.20);
-
-            nitroFlame.add(leftFlame);
-
+nitroFlame.add(leftFlame);
+            
             // Right Flame
             const rightFlame = new THREE.Mesh(
+    new THREE.ConeGeometry(0.04, 0.35, 12),
+    new THREE.MeshBasicMaterial({
+        color: 0x00aaff,
+        transparent: true,
+        opacity: 1
+    })
+);
 
-                new THREE.ConeGeometry(0.06, 0.30, 10),
+rightFlame.rotation.x = Math.PI;
+rightFlame.position.set(0.12, 0.12, 0.95);
 
-                flameMaterial.clone()
+nitroFlame.add(rightFlame);
 
-            );
-
-            rightFlame.rotation.x = -Math.PI / 2;
-            rightFlame.position.set(0.35, 0.45, -1.20);
-
-            nitroFlame.add(rightFlame);
 
             // Center Glow
             const glow = new THREE.Mesh(
+    new THREE.SphereGeometry(0.10, 16, 16),
+    new THREE.MeshBasicMaterial({
+        color: 0x66ddff,
+        transparent: true,
+        opacity: 0.9
+    })
+);
 
-                new THREE.SphereGeometry(0.08, 12, 12),
+glow.position.set(0, 0.12, 0.90);
 
-                new THREE.MeshBasicMaterial({
-
-                    color: 0x66ddff,
-                    transparent: true,
-                    opacity: 0.8
-
-                })
-
-            );
-
-            glow.position.set(0, 0.45, -1.10);
-
-            nitroFlame.add(glow);
-
+nitroFlame.add(glow);
+            
             nitroFlame.visible = false;
 
             player.add(nitroFlame);
