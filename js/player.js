@@ -49,8 +49,8 @@ export function createPlayer(scene) {
 
             );
 
-            leftFlame.rotation.x = Math.PI;
-            leftFlame.position.set(-0.12, 0.15, 1.0);
+            leftFlame.rotation.x = -Math.PI / 2;
+            leftFlame.position.set(-0.35, 0.45, -1.20);
 
             nitroFlame.add(leftFlame);
 
@@ -63,8 +63,8 @@ export function createPlayer(scene) {
 
             );
 
-            rightFlame.rotation.x = Math.PI;
-            rightFlame.position.set(0.12, 0.15, 1.0);
+            rightFlame.rotation.x = -Math.PI / 2;
+            rightFlame.position.set(0.35, 0.45, -1.20);
 
             nitroFlame.add(rightFlame);
 
@@ -83,7 +83,7 @@ export function createPlayer(scene) {
 
             );
 
-            glow.position.set(0, 0.15, 0.92);
+            glow.position.set(0, 0.45, -1.10);
 
             nitroFlame.add(glow);
 
@@ -92,6 +92,12 @@ export function createPlayer(scene) {
             player.add(nitroFlame);
 
             // =========================
+
+            const box = new THREE.BoxHelper(player, 0xff0000);
+scene.add(box);
+
+const axes = new THREE.AxesHelper(2);
+player.add(axes);
 
             scene.add(player);
 
