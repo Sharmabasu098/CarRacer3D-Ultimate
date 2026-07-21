@@ -87,17 +87,11 @@ export function createPlayer(scene) {
 
             nitroFlame.add(glow);
 
-            nitroFlame.visible = true;
+            nitroFlame.visible = false;
 
             player.add(nitroFlame);
 
             // =========================
-
-            const box = new THREE.BoxHelper(player, 0xff0000);
-scene.add(box);
-
-const axes = new THREE.AxesHelper(2);
-player.add(axes);
 
             scene.add(player);
 
