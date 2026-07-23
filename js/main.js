@@ -12,11 +12,7 @@ import {
     nitroFlame
 } from "./js/player.js";
 
-import {
-    setupControls,
-    moveLeft,
-    moveRight
-} from "./js/controls.js";
+import { setupControls } from "./js/controls.js";
 
 import {
     createTraffic,
@@ -45,7 +41,7 @@ function animate() {
 
     updateRoad();
 
-    updatePlayer(moveLeft, moveRight);
+    updatePlayer();
 
     updateTraffic();
 
