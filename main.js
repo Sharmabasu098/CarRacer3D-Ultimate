@@ -32,40 +32,37 @@ const sun = new THREE.DirectionalLight(0xffffff, 2);
 sun.position.set(10, 20, 10);
 scene.add(sun);
 
-// Create World
+// imports...
+
+// create world...
 createRoad(scene);
 createPlayer(scene);
 createTraffic(scene);
 setupControls();
 
-// Game Loop
+const startScreen = document.getElementById("startScreen");
+const startBtn = document.getElementById("startBtn");
+
+startBtn.addEventListener("click", () => {
+
+    startScreen.style.display = "none";
+
+    animate();
+
+});
+
 function animate() {
 
     requestAnimationFrame(animate);
 
     updateRoad();
-
     updatePlayer(moveLeft, moveRight);
-
     updateTraffic();
 
-    // Nitro Flame
-    if (nitroFlame) {
-        nitroFlame.visible = false;
-    }
-
-    // Camera Follow
     if (player) {
         camera.position.x = player.position.x;
-
-        camera.lookAt(
-            player.position.x,
-            0,
-            -20
-        );
+        camera.lookAt(player.position.x, 0, -20);
     }
 
     renderer.render(scene, camera);
 }
-
-animate();
