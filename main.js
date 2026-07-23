@@ -1,27 +1,27 @@
-import { scene, camera, renderer } from "./scene.js";
+import { scene, camera, renderer } from "./js/scene.js";
 
 import {
     createRoad,
     updateRoad
-} from "./road.js";
+} from "./js/road.js";
 
 import {
     createPlayer,
     updatePlayer,
     player,
     nitroFlame
-} from "./player.js";
+} from "./js/player.js";
 
 import {
     setupControls,
     moveLeft,
     moveRight
-} from "./controls.js";
+} from "./js/controls.js";
 
 import {
     createTraffic,
     updateTraffic
-} from "./traffic.js";
+} from "./js/traffic.js";
 
 import * as THREE from "three";
 
@@ -45,22 +45,17 @@ function animate() {
 
     updateRoad();
 
-    updatePlayer(
-        moveLeft,
-        moveRight
-    );
+    updatePlayer(moveLeft, moveRight);
 
     updateTraffic();
 
+    // Nitro Flame
     if (nitroFlame) {
-
-        nitroFlame.visible = true;
-
+        nitroFlame.visible = false;
     }
 
     // Camera Follow
     if (player) {
-
         camera.position.x = player.position.x;
 
         camera.lookAt(
@@ -68,14 +63,9 @@ function animate() {
             0,
             -20
         );
-
     }
 
-    renderer.render(
-        scene,
-        camera
-    );
-
+    renderer.render(scene, camera);
 }
 
 animate();
