@@ -1,289 +1,71 @@
-import * as THREE from "three";
+import { scene, camera, renderer } from "./js/scene.js";
 
-import { scene, camera, renderer } from "./scene.js";
-import { createRoad, updateRoad } from "./road.js";
-import { createPlayer, updatePlayer, player, nitroFlame } from "./player.js";
-import { setupControls } from "./controls.js";
+import {
+    createRoad,
+    updateRoad
+} from "./js/road.js";
+
+import {
+    createPlayer,
+    updatePlayer,
+    player,
+    nitroFlame
+} from "./js/player.js";
+
+import {
+    setupControls,
+    moveLeft,
+    moveRight
+} from "./js/controls.js";
 
 import {
     createTraffic,
-    updateTraffic,
-    checkCollision,
-    increaseTrafficSpeed
-} from "./traffic.js";
+    updateTraffic
+} from "./js/traffic.js";
 
-import {
-    createCoins,
-    updateCoins,
-    collectCoins,
-    coinCount,
-    loadCoins
-} from "./coin.js";
+import * as THREE from "three";
 
-import {
-    updateNitro,
-    nitroActive
-} from "./Nitro.js";
-
-// =====================
-// Game Variables
-// =====================
-
-let gameStarted = false;
-let gameOver = false;
-
-let score = 0;
-let lastSpeedLevel = 0;
-
-// =====================
-// UI
-// =====================
-
-const startScreen =
-    document.getElementById("startScreen");
-
-const startBtn =
-    document.getElementById("startBtn");
-
-const countdown =
-    document.getElementById("countdown");
-
-const scoreElement =
-    document.getElementById("score");
-
-const coinsElement =
-    document.getElementById("coins");
-
-const gameOverElement =
-    document.getElementById("gameOver");
-
-const restartBtn =
-    document.getElementById("restartBtn");
-
-// =====================
-// Start Button
-// =====================
-
-startBtn.addEventListener("click", () => {
-
-    startBtn.style.display = "none";
-
-    let count = 3;
-
-    countdown.textContent = count;
-
-    const timer = setInterval(() => {
-
-        count--;
-
-        if (count > 0) {
-
-            countdown.textContent = count;
-
-        }
-        else if (count === 0) {
-
-            countdown.textContent = "GO!";
-
-        }
-        else {
-
-            clearInterval(timer);
-
-            countdown.style.display = "none";
-
-            startScreen.style.display = "none";
-
-            gameStarted = true;
-
-        }
-
-    }, 1000);
-
-});
-restartBtn.addEventListener("click", () => {
-
-    location.reload();
-
-});
-
-
-// =====================
 // Lights
-// =====================
+scene.add(new THREE.AmbientLight(0xffffff, 1));
 
-const ambient = new THREE.AmbientLight(
-    0xffffff,
-    1.2
-);
-
-scene.add(ambient);
-
-const sun = new THREE.DirectionalLight(
-    0xffffff,
-    3
-);
-
+const sun = new THREE.DirectionalLight(0xffffff, 2);
 sun.position.set(10, 20, 10);
-
 scene.add(sun);
 
-// =====================
-// Create Game
-// =====================
-
+// Create World
 createRoad(scene);
-
 createPlayer(scene);
-
 createTraffic(scene);
-
-createCoins(scene);
-
-loadCoins();
-
 setupControls();
 
-// =====================
-// Animation
-// =====================
-
+// Game Loop
 function animate() {
 
     requestAnimationFrame(animate);
 
-    if (!gameStarted) {
-
-        renderer.render(scene, camera);
-
-        return;
-
-    }
-
-    if (gameOver) {
-
-        renderer.render(scene, camera);
-
-        return;
-
-    }
-
-    // Road
     updateRoad();
 
-    // Player
-    updatePlayer();
+    updatePlayer(moveLeft, moveRight);
 
-    // Traffic
-    if (nitroActive) {
+    updateTraffic();
 
-        updateTraffic(0.15);
-
-    } else {
-
-        updateTraffic(0);
-
-    }
-
-    // Nitro
-    updateNitro();
-
+    // Nitro Flame
     if (nitroFlame) {
-
-        nitroFlame.visible = nitroActive;
-
-        if (nitroActive) {
-
-            const scale =
-                1 + Math.sin(Date.now() * 0.03) * 0.25;
-
-            nitroFlame.scale.set(
-                scale,
-                scale,
-                scale
-            );
-
-        }
-
-    }
-
-    // Coins
-    updateCoins();
-
-    collectCoins();
-
-    // Score
-    score += 0.05;
-
-    scoreElement.textContent =
-        "Score: " + Math.floor(score);
-
-    coinsElement.textContent =
-        "🪙 Coins: " + coinCount;
-
-    const level =
-        Math.floor(score / 100);
-
-    if (level > lastSpeedLevel) {
-
-        lastSpeedLevel = level;
-
-        increaseTrafficSpeed();
-
-    }
-
-      // Collision
-
-    if (checkCollision()) {
-
-        gameOver = true;
-
-        gameOverElement.style.display = "block";
-
-        renderer.render(scene, camera);
-
-        return;
-
+        nitroFlame.visible = false;
     }
 
     // Camera Follow
-
     if (player) {
-
         camera.position.x = player.position.x;
 
-        if (nitroActive) {
-
-            camera.position.y = 3.9;
-            camera.position.z = 10.5;
-
-        } else {
-
-            camera.position.y = 3.5;
-            camera.position.z = 9;
-
-        }
-
         camera.lookAt(
-
             player.position.x,
-            1,
-            -5
-
+            0,
+            -20
         );
-
     }
 
-    // Render
-
     renderer.render(scene, camera);
-
 }
 
-// =====================
-// Start Animation
-// =====================
-
 animate();
-
-                            
