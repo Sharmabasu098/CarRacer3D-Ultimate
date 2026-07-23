@@ -51,10 +51,12 @@ function animate() {
     );
 
     updateTraffic();
-    
+
     if (nitroFlame) {
 
-    nitroFlame.visible
+        nitroFlame.visible = true;
+
+    }
 
     // Camera Follow
     if (player) {
