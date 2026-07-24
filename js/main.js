@@ -1,4 +1,5 @@
 import { scene, camera, renderer } from "./js/scene.js";
+console.log("1. main.js Loaded");
 
 import {
     createRoad,
@@ -29,8 +30,10 @@ sun.position.set(10, 20, 10);
 scene.add(sun);
 
 // Create World
-createRoad(scene);
+createRoad(scene)
+console.log("2. Road Created");
 createPlayer(scene);
+console.log("3. Player Created");
 createTraffic(scene);
 setupControls();
 
@@ -63,5 +66,7 @@ function animate() {
 
     renderer.render(scene, camera);
 }
+
+console.log("4. Starting Game Loop");
 
 animate();
