@@ -1,5 +1,7 @@
 import * as THREE from "three";
 
+alert("MAIN.JS LOADED");
+
 import { scene, camera, renderer } from "./js/scene.js";
 import { createRoad, updateRoad } from "./js/road.js";
 import { createPlayer, updatePlayer, player, nitroFlame } from "./js/player.js";
